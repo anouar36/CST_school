@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luma - Course Marketplace</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      background-color: #0f172a;
+      color: white;
+    }
+    .course-card {
+      transition: transform 0.2s;
+    }
+    .course-card:hover {
+      transform: translateY(-5px);
+    }
+    .pagination-item {
+      transition: all 0.2s;
+    }
+    .pagination-item:hover:not(.active) {
+      background-color: #374151;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white">
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <div class="w-56 bg-gray-900 border-r border-gray-800 flex flex-col">
+      <!-- Search Bar -->
+      <div class="px-4 py-3 border-b border-gray-800">
+        <div class="relative">
+          <input type="text" placeholder="Search" class="w-full bg-gray-800 rounded-md py-2 px-4 text-sm text-gray-300">
+          <button class="absolute right-2 top-2 text-gray-400">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Logo Area -->
+      <div class="flex flex-col items-center py-6 border-b border-gray-800">
+        <div class="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center mb-2">
+          <i class="fas fa-graduation-cap text-white text-2xl"></i>
+        </div>
+        <h2 class="text-xl font-bold">{{name}}</h2>
+      </div>
+      
+      <!-- Sidebar Navigation -->
+      <div class="py-4">
+        <p class="px-4 py-2 text-xs font-bold text-gray-500">STUDENT</p>
+        <ul class="mt-2">
+          <li class="px-4 py-2 flex items-center text-gray-400 hover:text-white">
+            <i class="fas fa-home mr-3"></i> Home
+          </li>
+          <li class="px-4 py-2 flex items-center text-gray-400 hover:text-white">
+            <i class="fas fa-book mr-3"></i> Browse Courses
+          </li>
+          <li class="px-4 py-2 flex items-center text-gray-400 hover:text-white">
+            <i class="fas fa-map-signs mr-3"></i> Browse Paths
+          </li>
+          <li class="px-4 py-2 flex items-center text-gray-400 hover:text-white">
+            <i class="fas fa-tachometer-alt mr-3"></i> Student Dashboard
+          </li>
+          <li class="px-4 py-2 flex items-center text-gray-400 hover:text-white">
+            <i class="fas fa-book-open mr-3"></i> My Courses
+          </li>
+          <li class="px-4 py-2 flex items-center text-gray-400 hover:text-white">
+            <i class="fas fa-route mr-3"></i> My Paths
+          </li>
+          <li class="px-4 py-2 flex items-center text-gray-400 hover:text-white">
+            <i class="fas fa-info-circle mr-3"></i> Path Details
+          </li>
+          <li class="px-4 py-2 flex items-center text-gray-400 hover:text-white">
+            <i class="fas fa-eye mr-3"></i> Course Preview
+          </li>
+          <li class="px-4 py-2 flex items-center text-gray-400 hover:text-white">
+            <i class="fas fa-file mr-3"></i> Lesson Preview
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="flex-1 overflow-y-auto">
+      <!-- Top Navigation -->
+      <header class="bg-gray-900 border-b border-gray-800 py-4 px-6 flex justify-between items-center">
+        <nav class="flex space-x-6">
+          <a href="#" class="text-gray-400 hover:text-white">Home</a>
+          <a href="#" class="text-gray-400 hover:text-white">Courses</a>
+          <a href="#" class="text-gray-400 hover:text-white">Paths</a>
+          <a href="#" class="text-gray-400 hover:text-white">Pricing</a>
+          <a href="#" class="text-gray-400 hover:text-white">Teachers</a>
+        </nav>
+        <div class="flex items-center space-x-4">
+          <button class="text-gray-400 hover:text-white">
+            <i class="fas fa-lock"></i>
+          </button>
+          <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm">
+            GET STARTED
+          </button>
+        </div>
+      </header>
+      
+      <!-- Course Listings -->
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-4">
+          <p class="text-sm text-gray-400">DISPLAYING 8 OUT OF 10 COURSES</p>
+          <div class="flex items-center">
+            <span class="text-sm text-gray-400 mr-2">SORT BY</span>
+            <button class="text-sm bg-gray-800 px-2 py-1 rounded-md mr-2">NEWEST</button>
+            <button class="text-sm text-gray-400 hover:text-white mr-2">POPULARITY</button>
+            <button class="text-sm border border-gray-700 px-2 py-1 rounded-md flex items-center">
+              <i class="fas fa-filter mr-1"></i> FILTERS
+            </button>
+          </div>
+        </div>
+        
+        <!-- Popular Courses Section -->
+        <h2 class="text-lg font-semibold mb-4">POPULAR COURSES</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+          <!-- Course Card 1 -->
+          {% for course in allCOURSES  %}
+
+          <div class="bg-blue-600 rounded-lg overflow-hidden course-card">
+            <div class="p-6 flex justify-center items-center h-36">
+              <button class="text-white bg-blue-700 hover:bg-blue-800 rounded-full w-12 h-12 flex items-center justify-center">
+                <i class="fas fa-play"></i>
+              </button>
+            </div>
+            <div class="p-4 bg-gray-800">
+              <h3 class="font-medium">{{course.course_name }}</h3>
+              <div class="flex items-center mt-1">
+                <div class="flex text-yellow-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+                <span class="text-gray-400 text-sm ml-2">6 hours</span>
+              </div>
+            </div>
+          </div>
+           {% endfor %}
+          
+          <!-- Course Card 2 -->
+          <div class="bg-pink-600 rounded-lg overflow-hidden course-card">
+            <div class="p-6 flex justify-center items-center h-36">
+              <div class="text-white text-6xl">in</div>
+            </div>
+            <div class="p-4 bg-gray-800">
+              <h3 class="font-medium">LinkedIn App</h3>
+              <div class="flex items-center mt-1">
+                <div class="flex text-yellow-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+                <span class="text-gray-400 text-sm ml-2">4 hours</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Course Card 3 -->
+          <div class="bg-blue-500 rounded-lg overflow-hidden course-card">
+            <div class="p-6 flex justify-center items-center h-36">
+              <div class="text-white text-6xl">C</div>
+            </div>
+            <div class="p-4 bg-gray-800">
+              <h3 class="font-medium">Craft by InVision</h3>
+              <div class="flex items-center mt-1">
+                <div class="flex text-yellow-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+                <span class="text-gray-400 text-sm ml-2">5 hours</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Featured Course -->
+        <div class="bg-gray-800 rounded-lg p-6 mb-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-lg font-semibold mb-2">Newsletter Design</h3>
+            <p class="text-sm text-gray-400 mb-2">with Elijah Murray</p>
+            <p class="text-sm text-gray-300 mb-4">Learn the fundamentals of working with Angular and how to create basic applications.</p>
+            <ul class="space-y-2 mb-6">
+              <li class="flex items-center text-sm">
+                <i class="fas fa-check text-green-500 mr-2"></i>
+                <span>Fundamentals of working with Angular</span>
+              </li>
+              <li class="flex items-center text-sm">
+                <i class="fas fa-check text-green-500 mr-2"></i>
+                <span>Create complete Angular applications</span>
+              </li>
+              <li class="flex items-center text-sm">
+                <i class="fas fa-check text-green-500 mr-2"></i>
+                <span>Working with the Angular CLI</span>
+              </li>
+              <li class="flex items-center text-sm">
+                <i class="fas fa-check text-green-500 mr-2"></i>
+                <span>Understanding Dependency Injection</span>
+              </li>
+              <li class="flex items-center text-sm">
+                <i class="fas fa-check text-green-500 mr-2"></i>
+                <span>Testing with Angular</span>
+              </li>
+            </ul>
+            <div class="flex space-x-4 items-center mb-4">
+              <div class="flex items-center">
+                <i class="far fa-clock mr-1"></i>
+                <span class="text-sm">6 hours</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-book mr-1"></i>
+                <span class="text-sm">12 lessons</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-signal mr-1"></i>
+                <span class="text-sm">Beginner</span>
+              </div>
+            </div>
+            <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded">
+              WATCH TRAILER
+            </button>
+          </div>
+          <div class="flex justify-center items-center">
+            <div class="bg-blue-600 rounded-lg w-full h-48 flex justify-center items-center">
+              <i class="fas fa-play-circle text-4xl text-white"></i>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Development Courses Section -->
+        <h2 class="text-lg font-semibold mb-4">DEVELOPMENT COURSES</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <!-- Course Card 1 -->
+          <div class="bg-gray-800 rounded-lg overflow-hidden course-card">
+            <div class="bg-blue-600 p-6 flex justify-center items-center h-36">
+              <div class="text-white text-6xl font-bold">A</div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-medium">Learn Angular fundamentals</h3>
+              <p class="text-sm text-gray-400">Elijah Murray</p>
+              <div class="flex items-center mt-1">
+                <div class="flex text-yellow-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+              </div>
+              <div class="flex justify-between mt-2 text-sm text-gray-400">
+                <div class="flex items-center">
+                  <i class="far fa-clock mr-1"></i>
+                  <span>6 hours</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-book mr-1"></i>
+                  <span>12 lessons</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Course Card 2 -->
+          <div class="bg-gray-800 rounded-lg overflow-hidden course-card">
+            <div class="bg-pink-400 p-6 flex justify-center items-center h-36">
+              <div class="text-white text-5xl">
+                <i class="fab fa-swift"></i>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-medium">Build an iOS Application in Swift</h3>
+              <p class="text-sm text-gray-400">Elijah Murray</p>
+              <div class="flex items-center mt-1">
+                <div class="flex text-yellow-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+              </div>
+              <div class="flex justify-between mt-2 text-sm text-gray-400">
+                <div class="flex items-center">
+                  <i class="far fa-clock mr-1"></i>
+                  <span>4 hours</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-book mr-1"></i>
+                  <span>10 lessons</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Course Card 3 -->
+          <div class="bg-gray-800 rounded-lg overflow-hidden course-card">
+            <div class="bg-purple-500 p-6 flex justify-center items-center h-36">
+              <div class="text-white text-5xl">
+                <i class="fab fa-react"></i>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-medium">React for Beginners</h3>
+              <p class="text-sm text-gray-400">Elijah Murray</p>
+              <div class="flex items-center mt-1">
+                <div class="flex text-yellow-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+              </div>
+              <div class="flex justify-between mt-2 text-sm text-gray-400">
+                <div class="flex items-center">
+                  <i class="far fa-clock mr-1"></i>
+                  <span>5 hours</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-book mr-1"></i>
+                  <span>8 lessons</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Course Card 4 -->
+          <div class="bg-gray-800 rounded-lg overflow-hidden course-card">
+            <div class="bg-green-500 p-6 flex justify-center items-center h-36">
+              <div class="text-white text-5xl">
+                <i class="fab fa-node-js"></i>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-medium">Node.js Fundamentals</h3>
+              <p class="text-sm text-gray-400">Elijah Murray</p>
+              <div class="flex items-center mt-1">
+                <div class="flex text-yellow-400">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+              </div>
+              <div class="flex justify-between mt-2 text-sm text-gray-400">
+                <div class="flex items-center">
+                  <i class="far fa-clock mr-1"></i>
+                  <span>7 hours</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-book mr-1"></i>
+                  <span>14 lessons</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+       <div class="flex justify-center mt-8">
+    <nav class="flex space-x-2">
+        <!-- Previous Button -->
+        {% if currentPage > 1 %}
+            <a 
+                href="student/{{ i - 1 }}" 
+                class="px-4 py-2 text-sm font-medium text-blue-700 bg-white border border-blue-300 rounded-lg hover:bg-blue-50 hover:text-blue-800 transition duration-300"
+            >
+                <i class="fas fa-chevron-left"></i> Previous
+            </a>
+        {% endif %}
+
+        <!-- Page Numbers -->
+        {% for i in 1..totalPages %}
+            <a 
+                href="student/{{ i }}" 
+                class="px-4 py-2 text-sm font-medium border border-blue-300 rounded-lg transition duration-300
+                      {{ i == currentPage ? 'bg-blue-600 text-white' : 'bg-white text-blue-700 hover:bg-blue-50 hover:text-blue-800' }}"
+            >
+                {{ i }}
+            </a>
+        {% endfor %}
+
+        <!-- Next Button -->
+        {% if currentPage < totalPages %}
+            <a 
+                href="student/{{ i + 1 }}" 
+                class="px-4 py-2 text-sm font-medium text-blue-700 bg-white border border-blue-300 rounded-lg hover:bg-blue-50 hover:text-blue-800 transition duration-300"
+            >
+                Next <i class="fas fa-chevron-right"></i>
+            </a>
+        {% endif %}
+    </nav>
+
+</div>
+
+
+  <!-- JavaScript for Pagination Functionality -->
+</body>
+</html>

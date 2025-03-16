@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<title>ALEXIS Banking Dashboard</title>
+		<!-- Box Icons CSS -->
+		<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
+		<link rel="stylesheet" href="../../../public/css/dashboard.css">
+	</head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+	<style>
+		.icon {
+			font-size: 18px;
+			cursor: pointer;
+			margin-left: 10px;
+		}
+	</style>
+
+	<body>
+		<!-- Sidebar -->
+		<div class="sidebar">
+			<div class="sidebar-logo">
+				<i class="bx bx-network-chart"></i>
+			</div>
+			<div class="sidebar-menu">
+				<div class="sidebar-item active" tabindex="0" role="button" aria-label="Dashboard">
+					<i class="bx bx-grid-alt"></i>
+				</div>
+			<div class="sidebar-item" tabindex="0" role="button" aria-label="Calendar">
+          <a href="/student/dashboard"><i class="fa-solid fa-user"></i></a>
+      </div>
+				<div class="sidebar-item" tabindex="0" role="button" aria-label="Wallet">
+					<i class="bx bx-wallet"></i>
+				</div>
+				<div class="sidebar-item" tabindex="0" role="button" aria-label="Analytics">
+					<i class="bx bx-bar-chart-alt-2"></i>
+				</div>
+				<div class="sidebar-item" tabindex="0" role="button" aria-label="Profile">
+					<i class="bx bx-user"></i>
+				</div>
+				<div class="sidebar-item" tabindex="0" role="button" aria-label="Notifications">
+					<i class="bx bx-bell"></i>
+				</div>
+				<div class="sidebar-item" tabindex="0" role="button" aria-label="Settings">
+					<i class="bx bx-cog"></i>
+				</div>
+			</div>
+			<div class="sidebar-menu" style="margin-top: auto">
+				<div class="sidebar-item" tabindex="0" role="button" aria-label="Logout">
+					<i class="bx bx-log-out"></i>
+				</div>
+			</div>
+		</div>
+
+		<!-- Main Content -->
+		<div
+			class="main-content">
+			<!-- Header -->
+			<div class="header">
+				<div class="greeting">
+					<div class="avatar">
+						<img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Profile"/>
+					</div>
+					<div class="greeting-text">
+						<h2>Greetings!
+							<i class="bx bxs-hand"></i>
+						</h2>
+						<p>Start your day with ALEXIS</p>
+					</div>
+				</div>
+				<div class="header-right">
+					<div class="search-bar">
+						<input type="text" placeholder="Search transactions, cards, etc." aria-label="Search"/>
+						<i class="bx bx-search"></i>
+					</div>
+					<div class="account-button" role="button" tabindex="0">
+						<i class="bx bx-user-circle"></i>
+						<span>My account</span>
+						<i class="bx bx-chevron-down"></i>
+					</div>
+				</div>
+			</div>
+
+			<!-- Content Area -->
+			<div
+				class="content-area">
+				<!-- Left Panel -->
+				<div
+					class="left-panel">
+					<!-- Cards Section -->
+					<div class="cards-section">
+						<div class="section-header">
+							<h3 class="section-title">Cards</h3>
+							<span class="see-all" tabindex="0" role="button">See all</span>
+						</div>
+						<div
+							class="cards-container">
+							<!-- Card 1 -->
+							<div class="card card-dark" tabindex="0" role="button" aria-label="View card details">
+								<div class="card-dots">
+									<i class="bx bx-dots-vertical-rounded"></i>
+								</div>
+								<div class="card-amount"> numberCourses 
+									Couers</div>
+								<div class="card-number">
+									**** 2475
+									<i class="bx bx-low-vision"></i>
+								</div>
+								<div class="card-expiry">10/25</div>
+								<div class="card-logo">
+									<i class="bx bxl-visa"></i>
+								</div>
+							</div>
+							<!-- Card 2 -->
+							<div class="card card-light" tabindex="0" role="button" aria-label="View card details">
+								<div class="card-dots">
+									<i class="bx bx-dots-vertical-rounded"></i>
+								</div>
+								<div class="card-amount">₹ 185,632.0</div>
+								<div class="card-number">
+									**** 3854
+									<i class="bx bx-low-vision"></i>
+								</div>
+								<div class="card-expiry">10/25</div>
+								<div class="card-logo">
+									<i class="bx bxs-circle"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Quick Actions -->
+					<div class="quick-actions">
+						<div class="action-button primary" tabindex="0" role="button" aria-label="Transfer money">
+							<div class="action-icon">
+								<i class="bx bx-transfer"></i>
+							</div>
+							<span class="action-text">Transfer</span>
+						</div>
+						<div class="action-button" tabindex="0" role="button" aria-label="Pay utilities">
+							<div class="action-icon">
+								<i class="bx bx-bulb"></i>
+							</div>
+							<span class="action-text">Utility</span>
+						</div>
+						<div class="action-button" tabindex="0" role="button" aria-label="Pay taxes">
+							<div class="action-icon">
+								<i class="bx bx-dollar-circle"></i>
+							</div>
+							<span class="action-text">Taxes</span>
+						</div>
+						<div class="action-button" tabindex="0" role="button" aria-label="Transport payments">
+							<div class="action-icon">
+								<i class="bx bx-car"></i>
+							</div>
+							<span class="action-text">Transport</span>
+						</div>
+					</div>
+
+					<!-- Recent Sales -->
+					<div class="recent-sales">
+						<div class="section-header">
+							<h3 class="section-title">Recent Coures</h3>
+						</div>
+						<table class="sales-table">
+							<thead>
+								<tr>
+									<th>name</th>
+									<th>catégorie</th>
+									<th>Status</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								{# {% for course in allCOURSES %} #}
+									<tr>
+										<td>
+											<div class="seller">
+												<div class="">
+													<span class="seller-name"> course.getCourseName</span>
+												</div>
+												<span class="seller-name"></span>
+											</div>
+										</td>
+										<td>course.getDateCreation() </td>
+										<td>
+											<div class="status success">
+												<i class="bx bxs-circle"></i>
+												course.category.id 
+											</div>
+										</td>
+										<td>
+											<i class="fa-solid fa-ban icon toggleIcon" onclick="toggleStatus(this)"></i>
+										</td>
+									</tr>
+								{# {% endfor %} #}
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+
+				<!-- Right Panel -->
+				<div class="right-panel">
+					<div class="statistics">
+						<div class="stats-header">
+							<h3 class="stats-title">
+								Statistics
+								<i class="bx bx-info-circle info-icon"></i>
+							</h3>
+							<div class="stats-period" tabindex="0" role="button">
+								<span>This week</span>
+								<i class="bx bx-chevron-down"></i>
+							</div>
+						</div>
+
+						<!-- Donut Chart -->
+						<div class="donut-chart">
+							<svg class="donut-chart-svg" viewbox="0 0 100 100">
+								<circle class="donut-ring" cx="50" cy="50" r="40"></circle>
+								<circle class="donut-segment donut-segment-1" cx="50" cy="50" r="40" stroke-dasharray="60 40" stroke-dashoffset="0"></circle>
+								<circle class="donut-segment donut-segment-2" cx="50" cy="50" r="40" stroke-dasharray="40 60" stroke-dashoffset="60"></circle>
+							</svg>
+							<div class="chart-overlay">
+								<div class="chart-label">Total</div>
+								<div class="chart-value">$16,480.00</div>
+							</div>
+						</div>
+
+						<!-- Chart Legend -->
+						<div class="chart-legend">
+							<div class="legend-item" tabindex="0">
+								<div class="legend-color light"></div>
+								<span>Payment at store</span>
+							</div>
+							<div class="legend-item" tabindex="0">
+								<div class="legend-color dark"></div>
+								<span>Money transaction</span>
+							</div>
+						</div>
+
+						<!-- Recent Transactions -->
+						<div class="transactions">
+							<div class="transaction" tabindex="0" role="button">
+								<div class="transaction-left">
+									<div class="transaction-icon">
+										<i class="bx bxl-amazon"></i>
+									</div>
+									<div class="transaction-details">
+										<h4>Amazon</h4>
+										<p>Payment at the store</p>
+										<p>28 minutes ago</p>
+									</div>
+								</div>
+								<div class="transaction-amount">-$380.00</div>
+							</div>
+
+							<div class="transaction" tabindex="0" role="button">
+								<div class="transaction-left">
+									<div class="transaction-icon">
+										<i class="bx bxl-microsoft"></i>
+									</div>
+									<div class="transaction-details">
+										<h4>Microsoft</h4>
+										<p>Payment at the store</p>
+										<p>3 hours ago</p>
+									</div>
+								</div>
+								<div class="transaction-amount">-$180.00</div>
+							</div>
+
+							<div class="transaction" tabindex="0" role="button">
+								<div class="transaction-left">
+									<div class="transaction-icon dark">
+										<i class="bx bxl-paypal"></i>
+									</div>
+									<div class="transaction-details">
+										<h4>PayPal</h4>
+										<p>Money transaction</p>
+										<p>1 day ago</p>
+									</div>
+								</div>
+								<div class="transaction-amount">-$95.00</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			function toggleStatus(icon) {
+if (icon.classList.contains("fa-ban")) {
+icon.classList.remove("fa-ban");
+icon.classList.add("fa-eye");
+} else {
+icon.classList.remove("fa-eye");
+icon.classList.add("fa-ban");
+}
+}
+		</script>
+
+
+	</body>
+</html>
