@@ -25,13 +25,16 @@ Route::get('teacher', 'TeacherController@index');
 //PAGES OF ADMIN 
 Route::get('admin'  , 'AdminController@index');
 Route::get('/student/dashborad'  , 'Studentdashborad@index');
+// block an unblock user
+Route::get('/admin/block/{id}'  , 'AdminController@block');
+Route::get('/admin/unblock/{id}'  , 'AdminController@unblock');
+
+// auth google
+
+Route::get('auth/google', 'AuthController@googleLogin');
+Route::get('auth/google/callback', 'AuthController@googleCallback');
 
 
-
-
-Route::get('/auth/google', 'AuthController@googleLogin');
-
-// Route::get('/auth/google/callback', 'AuthController@googleCallback');
 
 
 

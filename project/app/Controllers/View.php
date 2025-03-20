@@ -4,6 +4,9 @@ namespace App\Controllers;
 
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
+use Slim\Views\Twig;
+use Slim\Views\TwigMiddleware;
+use Slim\Routing\RouteContext;
 
 class View
 {
