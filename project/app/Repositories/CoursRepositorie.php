@@ -46,17 +46,17 @@ class CoursRepositorie
        
         $courses=[];
         foreach ($Allcourses as $course) {
-            $teachers = new Teacher($id = null, $course->username, $description = null); 
-            $categories = new Category($course->category_name);
+            $teachers = new Teacher($course->username,null , $description = null); 
+            $categories = new Category(null,$course->category_name);
             $courses[] = new Coures($course->course_name,
                                  $course->course_description,
                                   $course->content ,
                                    $course->participants,
                                     $categories,
                                      $teachers,
-                                       $course->active,
-                                        $course->deleted_at,
-                                         $course->date_creation );
+                                     $course->date_creation,
+                                     $course->active,
+                                          $course->deleted_at,);
         }
         return $courses;
     }

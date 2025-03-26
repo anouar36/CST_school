@@ -33,8 +33,10 @@ class LoginController{
             return false ;
         }else{
             if($user['role_name']=='Admin'){
+                
                 header("Location:admin"); 
             }else if($user["role_name"]=='Teacher'){
+
                 header("Location:teacher");
             }else{
                 header("Location:student");
@@ -49,10 +51,11 @@ class LoginController{
         }
     }
 }
-    // private function loadView($viewName, $data = []) {
-    //     extract($data);
-    //     require_once __DIR__ . "/../../resources/Views/Auth/".$viewName.".php"; 
-    // }
+// public fu
+//     // private function loadView($viewName, $data = []) {
+//     //     extract($data);
+//     //     require_once __DIR__ . "/../../resources/Views/Auth/".$viewName.".php"; 
+//     // }
 
 
 

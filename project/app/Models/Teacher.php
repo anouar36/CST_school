@@ -13,57 +13,53 @@ class Teacher
     private $password;
 
 
-    public function __construct($name, $email=null, $password=null)
+    public function __construct($name = null, $email = null, $password = null)
     {
         $this->name = $name;
         $this->email = $email;
         $this->password = $password;
     }
 
-    public function getId($id)
-    {
-        $this->id = $id;
-    }
-
-    public function getname($name)
-    {
-        $this->name = $name;
-    }
-
-    public function getEmail($email)
-    {
-        $this->email = $email;
-    }
-    public function getPassword($password)
-    {
-        $this->password = $password;
-    }
-
-
-
-    public function setId()
+    public function getId()
     {
         return $this->id;
     }
 
-    public function setname()
+    public function getName()
     {
         return $this->name;
     }
 
-    public function setEmail()
+    public function getEmail()
     {
         return $this->email;
     }
 
-    public function setPassword()
+    public function getPassword()
     {
         return $this->password;
     }
 
+    
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
 
 
 
+    
 
 
 

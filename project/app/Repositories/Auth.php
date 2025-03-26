@@ -39,6 +39,7 @@ class Auth {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         $userSession = new Session();
         $userSession->loginUser($user);
+        
       
         return $user ;
     }

@@ -18,7 +18,6 @@ class UserRepositorie {
     }
 
     public function index(){
-        
         try {
             $query = $this->connexion->prepare("SELECT * FROM users");
             $query->execute();
@@ -31,8 +30,6 @@ class UserRepositorie {
             foreach ($users as $user) {
                 $Users[] = new User($user->user_id, $user->username, $user->email, $user->password, $user->is_active, $user->image,$user->is_Block);
             }
-            
-            
             // var_dump($Users);
             return $Users;
 
@@ -41,11 +38,31 @@ class UserRepositorie {
         }
     }
 
-    public function block($id){
+    public function getUser($id){
         try {
-            $query = $this->connexion->prepare("UPDATE users SET is_active = 0 WHERE user_id = :id");
+            $query = $this->connexion->prepare("SELECT * FROM users WHERE user_id = :id");
             $query->bindParam(':id', $id);
             $query->execute();
+            $user = $query->fetch(PDO::FETCH_OBJ);
+            return new User($user->user_id, $user->username, $user->email, $user->password, $user->is_active, $user->image,$user->is_Block);
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+
+
+    public function block($id){
+        try {
+            $sql = "UPDATE users SET is_Block = 0 WHERE user_id = :id ";
+            $stmt = $this->connexion->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $result=$stmt->execute();
+            if ($result) {
+                return true ;
+            } else {
+                return false ;
+            }
         } catch (PDOException $e) {
             throw new Exception($e->getMessage());
         }
@@ -53,9 +70,49 @@ class UserRepositorie {
     
     public function unblock($id){
         try {
-            $query = $this->connexion->prepare("UPDATE users SET is_active = 1 WHERE user_id = :id");
-            $query->bindParam(':id', $id);
-            $query->execute();
+            $sql = "UPDATE users SET is_Block = 1 WHERE user_id = :id";
+            $stmt = $this->connexion->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $result=$stmt->execute();
+            if ($result) {
+                return true ;
+            } else {
+                return false ;
+            }
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function saveImage($image){
+        try {
+            $sql = "UPDATE users SET image = :image WHERE user_id = :id";
+            $stmt = $this->connexion->prepare($sql);
+            $stmt->bindParam(':image', $image);
+            $stmt->bindParam(':id', $_SESSION['user_id']);
+            $result=$stmt->execute();
+            if ($result) {
+                return true ;
+            } else {
+                return false ;
+            }
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function updateImage($image,$id){
+        try {
+            $sql = "UPDATE users SET image = :image WHERE user_id = :id";
+            $stmt = $this->connexion->prepare($sql);
+            $stmt->bindParam(':image', $image);
+            $stmt->bindParam(':id', $id);
+            $result=$stmt->execute();
+            if ($result) {
+                return true ;
+            } else {
+                return false ;
+            }
         } catch (PDOException $e) {
             throw new Exception($e->getMessage());
         }
