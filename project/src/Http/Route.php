@@ -55,14 +55,20 @@ class Route
 
             [$controllerAction, $methodeAction] = explode('@', $action);
 
-            if($_SESSION['role']){
+            if(isset($_SESSION['role'])){
                 $controllerAction = "App\\Controllers\\".$_SESSION['role']."\\".$controllerAction;
 
                 if (!class_exists($controllerAction)) {
                     $controllerAction =str_replace('\\'.$_SESSION['role'],"",$controllerAction) ;
+
                 }
             }else{
                 $controllerAction = "App\\Controllers\\$controllerAction";
+
+                if(!class_exists($controllerAction )) {
+                    header("Location: /login");
+                    exit;
+                }
             }            
 
           
@@ -80,7 +86,7 @@ class Route
             if (is_string($action)) {
                 [$controller, $method] = explode('@', $action);
                 
-                if(!$_SESSION["role"]){
+                if(!isset($_SESSION["role"]) ){
 
                  $controller = "App\\Controllers\\$controller";
 
@@ -97,7 +103,9 @@ class Route
                 }
              
                 if (!class_exists($controller)) {
+                    
                     echo "Class $controller does not exist";
+
                     exit;
                 }
 

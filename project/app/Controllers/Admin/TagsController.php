@@ -68,6 +68,8 @@ class TagsController
             return header('Location: /admin/tags');
         }
         
+
+        
         $tag = new TagRepositorie;
 
         $resulte = $tag->updateTag($id, $name, $active);

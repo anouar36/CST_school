@@ -164,6 +164,7 @@
             <div class="relative">
               <input
                 type="text"
+                id="searchInput"
                 placeholder="Search..."
                 class="w-48 md:w-64 h-9 pl-9 pr-3 text-sm rounded-lg bg-gray-100 dark:bg-gray-800 border border-transparent focus:border-gray-300 dark:focus:border-gray-700 focus:outline-none transition-all"
               />
@@ -395,7 +396,7 @@
                     </th>
                   </tr>
                 </thead>
-                <tbody class="bg-white dark:bg-[#0F0F12] divide-y divide-gray-200 dark:divide-gray-700">
+                <tbody id="results"  class="bg-white dark:bg-[#0F0F12] divide-y divide-gray-200 dark:divide-gray-700">
                   <!-- User 1 -->
 				   {% for user in users %}
                   <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors duration-150">
@@ -580,5 +581,32 @@
     }
   });
 </script>
+<input type="text" id="searchInput" placeholder="ابحث هنا...">
+<ul id="results"></ul>
+
+<script>
+document.getElementById("searchInput").addEventListener("keyup", function() {
+    let query = this.value;
+
+    if (query.length > 2) { // البحث بعد إدخال 3 أحرف أو أكثر
+        fetch(`search.php?q=${query}`)
+            .then(response => response.json())
+            .then(data => {
+                let resultsContainer = document.getElementById("results");
+                resultsContainer.innerHTML = "";
+
+                data.forEach(item => {
+                    let li = document.createElement("li");
+                  if(item.name!=""){
+                    li.textContent = item.name; // عدّل حسب البيانات المسترجعة
+                    
+                    resultsContainer.appendChild(li);
+                });
+            })
+            .catch(error => console.error("خطأ في جلب البيانات:", error));
+    }
+});
+</script>
+
 </body>
 </html>
