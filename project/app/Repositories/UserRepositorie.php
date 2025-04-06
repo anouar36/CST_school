@@ -118,6 +118,28 @@ class UserRepositorie {
         }
     }
 
+    public function searchUsers($query) {
+      
+        try {
+            $sql = "SELECT * FROM users WHERE username LIKE :query OR email LIKE :query";
+            $stmt = $this->connexion->prepare($sql);
+            $searchQuery = "%$query%";
+            $stmt->bindParam(':query', $searchQuery, PDO::PARAM_STR);
+            $stmt->execute();
+            $users = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+            $Users = [];
+
+            foreach ($users as $user) {
+                $Users[] = new User($user->user_id, $user->username, $user->email, $user->password, $user->is_active, $user->image,$user->is_Block);
+            }
+            
+            return $Users;
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
 
     
   

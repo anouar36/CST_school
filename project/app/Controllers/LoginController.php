@@ -50,6 +50,12 @@ class LoginController{
             return false ;
         }
     }
+
+    public function logout(){
+        $session=new Session();
+        $session->logoutUser();
+        header("Location:login"); 
+    }
 }
 // public fu
 //     // private function loadView($viewName, $data = []) {

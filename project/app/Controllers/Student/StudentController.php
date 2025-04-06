@@ -1,6 +1,5 @@
 <?php
-namespace app\Controllers;
-session_start();
+namespace app\Controllers\Student;
 
 use App\Controllers\View;
 use App\Models\User;
@@ -16,19 +15,30 @@ class StudentController{
         $allCourses = new CoursRepositorie;
         $nuberPages = $this->pagenation();
         $Ofset = $this->getPageNumber($number);
-        var_dump($_SESSION['role']);
        
 
         $courses = $allCourses->index( $Ofset);
-
+        // foreach($courses as $course){
+        //     var_dump( value: $course->getPrice() );
+            
+           
+          
+        //  exit;
+         
+          
+        // }
+       
         // var_dump($courses);
+
+
+       
         
         View::render('Student/student.twig', [
             'name'      => $_SESSION['user_name'],
             'email'     => $_SESSION['email'],
             'role'      => $_SESSION['role'],
             'logged_in' => $_SESSION['logged_in'] ,
-            'allCOURSES'=> $courses,
+            'courses'=> $courses,
             'totalPages'=> $nuberPages,
             'currentPage'=> $number,
         ]);

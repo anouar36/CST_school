@@ -39,7 +39,20 @@ class AdminController{
         
         $user = new UserRepositorie;
         $resulte = $user->block($id);
-        header('Location:http://localhost:82/admin');
+
+        if($resulte){
+            return json_encode([
+                'status' => 'success',
+                'message' => 'User blocked successfully'
+            ]);
+        }else{
+            return json_encode([
+                'status' => 'error',
+                'message' => 'Failed to block user'
+            ]);
+        }
+
+        
     }
 
     public function unblock(){
@@ -48,7 +61,8 @@ class AdminController{
         $user = new UserRepositorie;
         $resulte =  $user->unblock($id);
       
-        header('Location:http://localhost:82/admin');
+        header('Content-Type: application/json');
+        return json_encode($resulte);
     }
     public function id($url){
         $segments = explode('/', $url);
@@ -76,5 +90,35 @@ class AdminController{
         }   
             
         return $imagePath;
+    }
+
+
+    public function searchUsers()
+    {
+       
+        $query = $_GET['query'] ?? '';
+
+        $userRepositorie = new UserRepositorie();
+        $user = $userRepositorie->getUser($_SESSION['user_id']);
+        $users = $userRepositorie->searchUsers($query);
+           // Convert $users to an array if it's an object
+        $usersArray = [];
+        foreach ($users as $u) {
+            $usersArray[] = [
+                'id' => $u->getId(),
+                'name' => $u->getName(),
+                'email' => $u->getEmail(),
+                'password' => $u->getPassword(),
+                'isActive' => $u->getIsActive(),
+                'is_block' => $u->getIsBlock(),
+                'image' => $u->getImage(),
+            ];
+        }
+    
+    // Convert the array to JSON
+    echo json_encode($usersArray);
+        // var_dump($users);
+
+        return   $usersArray;
     }
 }

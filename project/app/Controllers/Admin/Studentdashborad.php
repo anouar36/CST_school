@@ -7,6 +7,8 @@ use App\Controllers\View;
 class Studentdashborad{
 
     public function index(){
+        var_dump($_SESSION['role']);
+        var_dump("anwar");
        
         View::render('Admin/StudentDashborad.twig', [
            

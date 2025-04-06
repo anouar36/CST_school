@@ -197,7 +197,7 @@
                     <div class="relative px-6 pt-12 pb-6">
                       <div class="flex items-center gap-4 mb-8">
                         <!-- Replace your existing profile image div with this: -->
-                        <form action="upload.php" method="post" enctype="multipart/form-data" action="http://localhost:82/admin/user/saveImage" class="relative">
+                        <form action="admin/saveImage" method="post" enctype="multipart/form-data" action="http://localhost:82/admin/user/saveImage" class="relative">
                           <!-- Hidden file input -->
                           <input type="file" id="profile-image-upload" name="image" class="hidden" />
                           
@@ -278,16 +278,18 @@
                             </svg>
                           </div>
                         </a>
-                        <button type="button" class="w-full flex items-center justify-between p-2 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 rounded-lg transition-colors duration-200">
-                          <div class="flex items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
-                              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                              <polyline points="16 17 21 12 16 7"></polyline>
-                              <line x1="21" x2="9" y1="12" y2="12"></line>
-                            </svg>
-                            <span class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Logout</span>
-                          </div>
-                        </button>
+                        <a href="logout" class="flex items-center justify-between p-2 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 rounded-lg transition-colors duration-200">
+                          <button type="button" class="w-full flex items-center justify-between p-2 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 rounded-lg transition-colors duration-200">
+                            <div class="flex items-center gap-2">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" x2="9" y1="12" y2="12"></line>
+                              </svg>
+                              <span class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Logout</span>
+                            </div>
+                          </button>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -376,7 +378,7 @@
             
             <!-- User Table -->
             <div class="overflow-x-auto">
-              <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <table id="userTable" class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead class="bg-gray-50 dark:bg-gray-800">
                   <tr>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
@@ -430,23 +432,15 @@
                         Verified
                       </span>
                     </td>
-                    {% if user.getIsBlock() %}
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <a href="/block/user/{{user.id}}">
-                      <button class="text-green-600 dark:text-green-400 hover:text-red-900 dark:hover:text-green-300 px-2 py-1 rounded hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors duration-150">
-                        UnBlock 
+                      <button 
+                              data-user-id = "{{ user.getId() }}"
+                              value="{{ user.getIsBlock() ? '0' : '1' }}" 
+                              class="action-button {{ user.getIsBlock() ? 'text-green-600 dark:text-green-400 hover:text-green-900 dark:hover:text-green-300 hover:bg-green-50 dark:hover:bg-green-900/20' : 'text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/20' }} px-2 py-1 rounded transition-colors duration-150">
+                          {{ user.getIsBlock() ? 'Unblock' : 'Block' }}
                       </button>
-                    </a>
-                    </td>
-                     {% else %}
-                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <a href="/unblock/user/{{user.id}}">
-                      <button class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300 px-2 py-1 rounded hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors duration-150">
-                        Block
-                      </button>
-                    </a>
-                    </td>
-                    {% endif %}
+                  </td>
+
                   </tr>
 				  {% endfor %}
                 </tbody>
@@ -499,114 +493,10 @@
       <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
     </svg>
   </button>
-
-  <script>
-    // Theme toggle functionality
-    const themeToggle = document.getElementById('theme-toggle');
-    const htmlElement = document.documentElement;
-    
-    // Check for saved theme preference or use system preference
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      htmlElement.classList.add('dark');
-    }
-    
-    // Toggle theme
-    themeToggle.addEventListener('click', () => {
-      htmlElement.classList.toggle('dark');
-      localStorage.setItem('theme', htmlElement.classList.contains('dark') ? 'dark' : 'light');
-    });
-    
-    // Mobile menu functionality
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const sidebar = document.getElementById('sidebar');
-    const mobileOverlay = document.getElementById('mobile-overlay');
-    
-    mobileMenuButton.addEventListener('click', () => {
-      sidebar.classList.toggle('-translate-x-full');
-      mobileOverlay.classList.toggle('hidden');
-    });
-    
-    mobileOverlay.addEventListener('click', () => {
-      sidebar.classList.add('-translate-x-full');
-      mobileOverlay.classList.add('hidden');
-    });
-    
-    // Profile dropdown functionality
-    const profileButton = document.getElementById('profile-button');
-    const profileMenu = document.getElementById('profile-menu');
-    
-    profileButton.addEventListener('click', () => {
-      profileMenu.classList.toggle('hidden');
-    });
-    
-    // Close dropdown when clicking outside
-    document.addEventListener('click', (event) => {
-      const isClickInside = profileButton.contains(event.target) || profileMenu.contains(event.target);
-      if (!isClickInside && !profileMenu.classList.contains('hidden')) {
-        profileMenu.classList.add('hidden');
-      }
-    });
-
-
-    // Profile image update hover functionality
-    const profileImageContainer = document.getElementById('profile-image-container');
-    const profileUpdateOverlay = document.getElementById('profile-update-overlay');
-
-    profileImageContainer.addEventListener('mouseenter', () => {
-      profileUpdateOverlay.classList.remove('hidden');
-      profileUpdateOverlay.classList.add('flex');
-    });
-
-    profileImageContainer.addEventListener('mouseleave', () => {
-      profileUpdateOverlay.classList.add('hidden');
-      profileUpdateOverlay.classList.remove('flex');
-    });
-  </script>
-
-  <script>
-  // Optional JavaScript to show the submit button when a file is selected
-  document.getElementById('profile-image-upload').addEventListener('change', function(e) {
-    if (e.target.files.length > 0) {
-      // Show the submit button
-      document.getElementById('submit-button').classList.remove('hidden');
-      
-      // Preview the selected image
-      const file = e.target.files[0];
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        document.getElementById('profile-image').src = e.target.result;
-      }
-      reader.readAsDataURL(file);
-    }
-  });
-</script>
-<input type="text" id="searchInput" placeholder="ابحث هنا...">
-<ul id="results"></ul>
-
-<script>
-document.getElementById("searchInput").addEventListener("keyup", function() {
-    let query = this.value;
-
-    if (query.length > 2) { // البحث بعد إدخال 3 أحرف أو أكثر
-        fetch(`search.php?q=${query}`)
-            .then(response => response.json())
-            .then(data => {
-                let resultsContainer = document.getElementById("results");
-                resultsContainer.innerHTML = "";
-
-                data.forEach(item => {
-                    let li = document.createElement("li");
-                  if(item.name!=""){
-                    li.textContent = item.name; // عدّل حسب البيانات المسترجعة
-                    
-                    resultsContainer.appendChild(li);
-                });
-            })
-            .catch(error => console.error("خطأ في جلب البيانات:", error));
-    }
-});
-</script>
+   <script src="../../../public/js/admin/anmationProfile.js"></script>
+   <script src="../../../public/js/admin/changeImage.js"></script>
+   <script src="../../../public/js/admin/ajaxSearch.js"></script>
+   <script src="../../../public/js/admin/ajaxAction.js"></script>
 
 </body>
 </html>

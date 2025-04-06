@@ -14,6 +14,7 @@ Route::get('SignUp', 'SignUpController@index');
 
 Route::post('SignUpUser', 'SignUpController@create');
 Route::post('Login', 'loginController@login');
+Route::get('logout', 'LoginController@logout');
 
 
 //page User  
@@ -24,11 +25,10 @@ Route::get('teacher', 'TeacherController@index');
 
 //PAGES OF ADMIN 
 Route::get('admin'  , 'AdminController@index');
-Route::get('student/dashborad'  , 'Studentdashborad@index');
+// Route::get('student/dashborad'  , 'Studentdashborad@index');
 
 // block and unblock user
 Route::get('unblock/user/{id}', 'AdminController@unblock');
-
 Route::get('block/user/{id}', 'AdminController@block');
 
 //save image
@@ -46,6 +46,16 @@ Route::get('admin/deleteTag/{id}', 'TagsController@deleteTag');
 
 // update tag
 Route::post('admin/updateTag','TagsController@updateTag');
+
+
+// serch user
+Route::get('/search/users', 'AdminController@searchUsers');
+
+// course-detail
+Route::get('course/details/{id}', 'CourseDetailController@index');
+
+//payment
+Route::get('payment/{id}', 'PaymentController@index');
 
 
 

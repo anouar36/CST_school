@@ -4,10 +4,16 @@ namespace App\Models;
 class Coures {
     private $course_id;
     private $course_name;
+
+    private $price;
+    private $duration;
     private $course_description;
     private $content;
+    private $introduction;
+    private $Level;
     private $participants;
     private $category;
+    private $tag ;
     private $teacher;
     private $start_date;
     private $created_at;
@@ -16,27 +22,40 @@ class Coures {
     private $date_creation;
 
     public function __construct(
+        
         $course_name = null, 
+        $price = null,
         $course_description = null, 
         $content = null, 
         $participants = 0, 
-        $category = null, 
+        $category = null,
+        $tag = null, 
         $teacher = null,
         $start_date = null,
         $active = 1,
         $deleted_at = null,
-        $date_creation = null
+        $date_creation = null,
+        $course_id = null,
+        $duration= null,
+        $Level = null,
+        $introduction = null
     ) {
         $this->course_name = $course_name;
+        $this->price = $price;
         $this->course_description = $course_description;
         $this->content = $content;
         $this->participants = $participants;
         $this->category = $category;
+        $this->tag = $tag;
         $this->teacher = $teacher;
         $this->start_date = $start_date;
         $this->active = $active;
         $this->deleted_at = $deleted_at;
-        $this->date_creation = $date_creation ?? date('Y-m-d H:i:s'); // Default to current timestamp if null
+        $this->date_creation = $date_creation ?? date('Y-m-d H:i:s'); 
+        $this->course_id = $course_id;
+        $this->duration = $duration;
+        $this->Level = $Level;
+        $this->introduction = $introduction;
     }
 
     public function getCourseId() {
@@ -54,6 +73,17 @@ class Coures {
     public function setCourseName($course_name) {
         $this->course_name = $course_name;
     }
+
+    public function getPrice() {
+        return $this->price;
+    }
+
+    public function setPrice($price) {
+        $this->price = $price;
+    }
+
+
+
 
     public function getCourseDescription() {
         return $this->course_description;
@@ -85,6 +115,14 @@ class Coures {
 
     public function setCategory($category) {
         $this->category_id = $category;
+    }
+
+    public function getTags() {
+        return $this->tag;
+    }
+
+    public function setTag($tag) {
+        $this->tag = $tag;
     }
 
     public function getTeacher() {
@@ -134,4 +172,27 @@ class Coures {
     public function setDateCreation($date_creation) {
         $this->date_creation = $date_creation;
     }
+
+    public function getDuration() {
+        return $this->duration;
+    }
+
+    public function setDuration($duration) {
+        $this->duration = $duration;
+    }
+
+    public function setLevel($level) {
+        $this->Level = $level;
+    }
+    public function getLevel() {
+        return $this->Level;
+    }
+
+    public function setIntroduction($introduction) {
+        $this->introduction = $introduction;
+    }
+    public function getIntroduction() {
+        return $this->introduction;
+    }
+
 }

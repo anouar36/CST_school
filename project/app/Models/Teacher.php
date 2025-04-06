@@ -11,14 +11,18 @@ class Teacher
     private $name;
     private $email;
     private $password;
+    private $image;
 
 
-    public function __construct($name = null, $email = null, $password = null)
+    public function __construct($name = null, $email = null, $password = null, $image = null,)
     {
+        $this->id = null; 
         $this->name = $name;
         $this->email = $email;
         $this->password = $password;
+        $this->image = $image;
     }
+
 
     public function getId()
     {
@@ -40,6 +44,11 @@ class Teacher
         return $this->password;
     }
 
+    public function getImage()
+    {
+        return $this->image;
+    }
+
     
 
     public function setName($name)
@@ -57,10 +66,11 @@ class Teacher
         $this->password = $password;
     }
 
-
-
     
 
-
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
 
 }
