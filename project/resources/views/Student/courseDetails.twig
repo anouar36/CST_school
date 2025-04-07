@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Development Masterclass - TOTC</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            teal: {
+              400: "#38B2AC",
+              500: "#319795"
+            },
+            orange: {
+              400: "#F6AD55"
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://unpkg.com/lucide-icons/dist/umd/lucide.css" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-gray-50 font-sans">
+  <!-- Header -->
+  <header class="bg-teal-400 text-white shadow">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="index.html" class="text-2xl font-bold">
+        TOTC
+      </a>
+      <div class="hidden md:flex space-x-8">
+        <a href="#" class="hover:text-teal-200">Home</a>
+        <a href="#" class="hover:text-teal-200">Courses</a>
+        <a href="#" class="hover:text-teal-200">Careers</a>
+        <a href="#" class="hover:text-teal-200">Blog</a>
+        <a href="#" class="hover:text-teal-200">About Us</a>
+      </div>
+      <div class="flex items-center space-x-4">
+        <a href="history.html">
+          <button class="bg-white/20 text-white px-4 py-2 rounded-full hover:bg-white/30 transition-colors">History</button>
+        </a>
+        <a href="profile.html">
+          <button class="bg-white text-teal-500 px-6 py-2 rounded-full hover:bg-teal-100 transition-colors">My Profile</button>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Course Hero -->
+  <div class="relative bg-teal-400 text-white py-16 overflow-hidden">
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="flex flex-col lg:flex-row gap-8">
+        <div class="lg:w-2/3">
+          <div class="inline-block px-3 py-1 bg-white/20 rounded-full text-sm mb-4">
+             {{course.getCategory.getName}}
+          </div>
+          <h1 class="text-4xl font-bold mb-4">{{course.getCourseName}}</h1>
+          <p class="text-lg mb-6 max-w-2xl">{{course.getCourseDescription}}</p>
+          
+          <div class="flex items-center mb-4">
+            <div class="flex mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400 fill-yellow-400" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400 fill-yellow-400" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400 fill-yellow-400" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400 fill-yellow-400" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400 fill-yellow-400" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+            </div>
+            <span class="font-medium">4.8</span>
+            <span class="text-white/80 ml-1">({{course.getCourseParticipants}})</span>
+          </div>
+          
+          <div class="flex items-center mb-6">
+            <img src="../../../public/assets/images/{{ course.getTeacher.getImage | default('user-3296.png') }}" alt="John Doe" class="w-12 h-12 rounded-full object-cover border-2 border-white" />
+            <div class="ml-3">
+              <p class="font-medium">Created by</p>
+              <p class="text-white/80"> {{ course.getTeacher.getName }}</p>
+            </div>
+          </div>
+          
+          <div class="flex flex-wrap gap-6 mb-8">
+            <div class="flex items-center">
+              <div class="bg-white/20 p-2 rounded-full mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-medium">Duration</p>
+                <p class="text-white/80">{{course.getDuration}} hours</p>
+              </div>
+            </div>
+            
+            <div class="flex items-center">
+              <div class="bg-white/20 p-2 rounded-full mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-medium">Level</p>
+                <p class="text-white/80">{{course.getLevel}}</p>
+              </div>
+            </div>
+            
+            <div class="flex items-center">
+              <div class="bg-white/20 p-2 rounded-full mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-medium">Last Updated</p>
+                <p class="text-white/80">March 2023</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="lg:w-1/3">
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="relative h-48 w-full">
+              <img
+                src="../../../public/assets/images/{{course.getIntroduction}}"
+                alt="Web Development Masterclass"
+                class="object-cover w-full h-full"
+              />
+              <div class="absolute inset-0 bg-black/20 flex items-center justify-center">
+                <button class="bg-white/90 hover:bg-white text-teal-500 rounded-full p-4 transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-6">
+                <div class="text-3xl font-bold text-gray-800">{{course.getPrice}}MAD</div>
+                <div class="text-sm text-gray-500 line-through">129.99MAD</div>
+              </div>
+              
+              <a href="/payment/{{course.getCourseId}}">
+              <button class="w-full mb-3 px-6 py-3 bg-teal-500 text-white rounded-full hover:bg-teal-400 transition-colors font-medium">
+                Enroll Now
+              </button>
+              Details</a>
+              
+              <button class="w-full px-6 py-3 border border-gray-300 rounded-full hover:bg-gray-50 transition-colors text-gray-700 font-medium flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+                Add to Wishlist
+              </button>
+              
+              <div class="mt-6 space-y-3 text-sm">
+                <div class="flex items-center text-gray-700">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  30-day money-back guarantee
+                </div>
+                <div class="flex items-center text-gray-700">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Full lifetime access
+                </div>
+                <div class="flex items-center text-gray-700">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Certificate of completion
+                </div>
+                <div class="flex items-center text-gray-700">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Access on mobile and TV
+                </div>
+              </div>
+              
+              <div class="mt-6 pt-6 border-t border-gray-200">
+                <p class="text-center text-gray-500 text-sm">
+                  Share this course:
+                </p>
+                <div class="flex justify-center space-x-4 mt-3">
+                  <a href="#" class="text-gray-400 hover:text-teal-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                    </svg>
+                  </a>
+                  <a href="#" class="text-gray-400 hover:text-teal-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                    </svg>
+                  </a>
+                  <a href="#" class="text-gray-400 hover:text-teal-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                    </svg>
+                  </a>
+                  <a href="#" class="text-gray-400 hover:text-teal-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M0 0v24h24v-24h-24zm8 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.397-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Decorative elements -->
+    <div class="absolute top-0 right-0 w-64 h-64 bg-teal-300 rounded-full opacity-20 -mr-32 -mt-32"></div>
+    <div class="absolute bottom-0 left-0 w-64 h-64 bg-teal-300 rounded-full opacity-20 -ml-32 -mb-32"></div>
+    
+    <!-- Wave SVG for bottom curve -->
+    <div class="absolute bottom-0 left-0 w-full">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120">
+        <path fill="#ffffff" fill-opacity="1" d="M0,32L60,53.3C120,75,240,117,360,117.3C480,117,600,75,720,64C840,53,960,75,1080,80C1200,85,1320,75,1380,69.3L1440,64L1440,120L1380,120C1320,120,1200,120,1080,120C960,120,840,120,720,120C600,120,480,120,360,120C240,120,120,120,60,120L0,120Z"></path>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Course Content -->
+  <div class="container mx-auto px-4 py-12">
+    <!-- Tabs -->
+    <div class="mb-8 border-b">
+      <div class="flex flex-wrap -mb-px">
+        <button class="px-6 py-3 border-b-2 border-teal-500 text-teal-500 font-medium">Course Content</button>
+        <button class="px-6 py-3 text-gray-500 hover:text-gray-700">Reviews</button>
+        <button class="px-6 py-3 text-gray-500 hover:text-gray-700">Exercises</button>
+        <button class="px-6 py-3 text-gray-500 hover:text-gray-700">Resources</button>
+        <button class="px-6 py-3 text-gray-500 hover:text-gray-700">Q&A</button>
+      </div>
+    </div>
+
+    <!-- Content Tab -->
+    <div class="bg-white rounded-xl shadow-sm p-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+        <h2 class="text-2xl font-bold text-gray-800">Course Content</h2>
+        <div class="mt-4 md:mt-0 flex flex-wrap gap-4 text-sm">
+          <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+            <span>13 sections</span>
+          </div>
+          <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+            <span>42 lectures</span>
+          </div>
+          <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>24h total length</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="space-y-6">
+        <!-- Section 1 -->
+        <div class="border border-gray-200 rounded-xl overflow-hidden transition-all hover:shadow-md">
+          <div class="bg-gray-50 p-5 font-medium flex items-center justify-between cursor-pointer">
+            <div class="flex items-center">
+              <div class="bg-teal-100 text-teal-500 p-2 rounded-lg mr-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg text-gray-800">Introduction to Web Development</h3>
+                <p class="text-sm text-gray-500 mt-1">3 lectures • 25 min</p>
+              </div>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+          <div class="divide-y divide-gray-100">
+            <div class="p-5 flex items-center justify-between hover:bg-gray-50 transition-colors">
+              <div class="flex items-center">
+                <div class="bg-teal-500 text-white p-2 rounded-full mr-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-gray-800">Course Overview</h4>
+                  <p class="text-sm text-gray-500 mt-1">What you'll learn in this course</p>
+                </div>
+              </div>
+              <div class="text-sm text-gray-500 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                5:20
+              </div>
+            </div>
+            <div class="p-5 flex items-center justify-between hover:bg-gray-50 transition-colors">
+              <div class="flex items-center">
+                <div class="bg-teal-500 text-white p-2 rounded-full mr-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-gray-800">Setting Up Your Environment</h4>
+                  <p class="text-sm text-gray-500 mt-1">Tools and software you'll need</p>
+                </div>
+              </div>
+              <div class="text-sm text-gray-500 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                12:45
+              </div>
+            </div>
+            <div class="p-5 flex items-center justify-between hover:bg-gray-50 transition-colors">
+              <div class="flex items-center">
+                <div class="bg-gray-200 text-gray-600 p-2 rounded-full mr-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-gray-800">Web Development Basics</h4>
+                  <p class="text-sm text-gray-500 mt-1">Fundamental concepts</p>
+                </div>
+              </div>
+              <div class="text-sm text-gray-500">
+                Reading
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="border border-gray-200 rounded-xl overflow-hidden transition-all hover:shadow-md">
+          <div class="bg-gray-50 p-5 font-medium flex items-center justify-between cursor-pointer">
+            <div class="flex items-center">
+              <div class="bg-orange-100 text-orange-500 p-2 rounded-lg mr-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg text-gray-800">HTML Fundamentals</h3>
+                <p class="text-sm text-gray-500 mt-1">4 lectures • 75 min</p>
+              </div>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+          <div class="divide-y divide-gray-100">
+            <div class="p-5 flex items-center justify-between hover:bg-gray-50 transition-colors">
+              <div class="flex items-center">
+                <div class="bg-teal-500 text-white p-2 rounded-full mr-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-gray-800">HTML Structure</h4>
+                  <p class="text-sm text-gray-500 mt-1">Building blocks of web pages</p>
+                </div>
+              </div>
+              <div class="text-sm text-gray-500 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                18:30
+              </div>
+            </div>
+            <div class="p-5 flex items-center justify-between hover:bg-gray-50 transition-colors">
+              <div class="flex items-center">
+                <div class="bg-teal-500 text-white p-2 rounded-full mr-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-gray-800">HTML Elements</h4>
+                  <p class="text-sm text-gray-500 mt-1">Tags and attributes</p>
+                </div>
+              </div>
+              <div class="text-sm text-gray-500 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                22:15
+              </div>
+            </div>
+            <div class="p-5 flex items-center justify-between hover:bg-gray-50 transition-colors">
+              <div class="flex items-center">
+                <div class="bg-teal-500 text-white p-2 rounded-full mr-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-gray-800">HTML Forms</h4>
+                  <p class="text-sm text-gray-500 mt-1">Creating interactive forms</p>
+                </div>
+              </div>
+              <div class="text-sm text-gray-500 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                25:40
+              </div>
+            </div>
+            <div class="p-5 flex items-center justify-between hover:bg-gray-50 transition-colors">
+              <div class="flex items-center">
+                <div class="bg-yellow-100 text-yellow-600 p-2 rounded-full mr-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-gray-800">HTML Practice Exercise</h4>
+                  <p class="text-sm text-gray-500 mt-1">Apply what you've learned</p>
+                </div>
+              </div>
+              <div class="text-sm text-gray-500">
+                Practice
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3 -->
+        <div class="border border-gray-200 rounded-xl overflow-hidden transition-all hover:shadow-md">
+          <div class="bg-gray-50 p-5 font-medium flex items-center justify-between cursor-pointer">
+            <div class="flex items-center">
+              <div class="bg-blue-100 text-blue-500 p-2 rounded-lg mr-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg text-gray-800">CSS Styling</h3>
+                <p class="text-sm text-gray-500 mt-1">6 lectures • 110 min</p>
+              </div>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+          <div class="divide-y divide-gray-100">
+            <div class="p-5 flex items-center justify-between hover:bg-gray-50 transition-colors">
+              <div class="flex items-center">
+                <div class="bg-teal-500 text-white p-2 rounded-full mr-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-gray-800">CSS Selectors</h4>
+                  <p class="text-sm text-gray-500 mt-1">Targeting HTML elements</p>
+                </div>
+              </div>
+              <div class="text-sm text-gray-500 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                20:10
+              </div>
+            </div>
+            <div class="p-5 flex items-center justify-between hover:bg-gray-50 transition-colors">
+              <div class="flex items-center">
+                <div class="bg-teal-500 text-white p-2 rounded-full mr-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-gray-800">CSS Box Model</h4>
+                  <p class="text-sm text-gray-500 mt-1">Understanding layout fundamentals</p>
+                </div>
+              </div>
+              <div class="text-sm text-gray-500 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                15:35
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-8 text-center">
+        <button class="px-6 py-3 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors font-medium">
+          Show all sections
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-8 mt-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">TOTC</h3>
+          <p class="text-gray-300">
+            Premium learning platform for students and professionals.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">Quick Links</h4>
+          <ul class="space-y-2">
+            <li>
+              <a href="courses.html" class="text-gray-300 hover:text-white">
+                All Courses
+              </a>
+            </li>
+            <li>
+              <a href="exercises.html" class="text-gray-300 hover:text-white">
+                Exercises
+              </a>
+            </li>
+            <li>
+              <a href="history.html" class="text-gray-300 hover:text-white">
+                History
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">Support</h4>
+          <ul class="space-y-2">
+            <li>
+              <a href="contact.html" class="text-gray-300 hover:text-white">
+                Contact Us
+              </a>
+            </li>
+            <li>
+              <a href="faq.html" class="text-gray-300 hover:text-white">
+                FAQ
+              </a>
+            </li>
+            <li>
+              <a href="help.html" class="text-gray-300 hover:text-white">
+                Help Center
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">Subscribe</h4>
+          <p class="text-gray-300 mb-2">
+            Get the latest updates and offers
+          </p>
+          <div class="flex">
+            <input
+              type="email"
+              placeholder="Your email"
+              class="px-4 py-2 rounded-l-md w-full"
+            />
+            <button class="px-4 py-2 bg-teal-500 text-white rounded-r-md hover:bg-teal-400">Subscribe</button>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+        <p>&copy; <script>document.write(new Date().getFullYear())</script> TOTC. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
