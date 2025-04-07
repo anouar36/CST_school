@@ -159,62 +159,62 @@ class CoursRepositorie
 
 
 
-    public function allCourses()
-    {
-        $query = "SELECT 
-                courses.course_name,
-                courses.course_description,
-                courses.content,
-                courses.date_creation,
-                courses.participants,
-                courses.active,
-                courses.deleted_at,
-                users.username,
-                users.image,
-                categories.category_name, 
-                GROUP_CONCAT(tags.tag_name) AS tags
-              FROM courses 
-              INNER JOIN users ON courses.teacher_id = users.user_id
-              INNER JOIN categories ON courses.category_id = categories.category_id 
-              LEFT JOIN course_tags ON courses.course_id = course_tags.course_id
-              LEFT JOIN tags ON course_tags.tag_id = tags.tag_id 
-              GROUP BY courses.course_id, users.username, categories.category_name
-              ORDER BY courses.participants ASC 
-              LIMIT 25";
+    // public function allCourses()
+    // {
+    //     $query = "SELECT 
+    //             courses.course_name,
+    //             courses.course_description,
+    //             courses.content,
+    //             courses.date_creation,
+    //             courses.participants,
+    //             courses.active,
+    //             courses.deleted_at,
+    //             users.username,
+    //             users.image,
+    //             categories.category_name, 
+    //             GROUP_CONCAT(tags.tag_name) AS tags
+    //           FROM courses 
+    //           INNER JOIN users ON courses.teacher_id = users.user_id
+    //           INNER JOIN categories ON courses.category_id = categories.category_id 
+    //           LEFT JOIN course_tags ON courses.course_id = course_tags.course_id
+    //           LEFT JOIN tags ON course_tags.tag_id = tags.tag_id 
+    //           GROUP BY courses.course_id, users.username, categories.category_name
+    //           ORDER BY courses.participants ASC 
+    //           LIMIT 25";
 
-        $stmt = $this->connexion->prepare($query);
-        $stmt->execute();
-        $Allcourses = $stmt->fetchAll(PDO::FETCH_OBJ);
+    //     $stmt = $this->connexion->prepare($query);
+    //     $stmt->execute();
+    //     $Allcourses = $stmt->fetchAll(PDO::FETCH_OBJ);
 
        
 
-        $courses = [];
-        foreach ($Allcourses as $course) {
+    //     $courses = [];
+    //     foreach ($Allcourses as $course) {
             
-            $tags = $course->tags ? explode(',', $course->tags) : []; // تجنب الأخطاء عند عدم وجود علامات
-            $teacher = new Teacher($course->username, null, null,);
-            $category = new Category(null, $course->category_name);
+    //         $tags = $course->tags ? explode(',', $course->tags) : []; // تجنب الأخطاء عند عدم وجود علامات
+    //         $teacher = new Teacher($course->username, null, null,);
+    //         $category = new Category(null, $course->category_name);
 
-            $courses[] = new Coures(
+    //         $courses[] = new Coures(
 
-                $course->course_name,
-                $course->course_description,
-                $course->content,
-                $course->participants,
-                $category,
-                $tags,
-                $teacher,
-                $course->date_creation,
-                $course->active,
-                $course->deleted_at
-            );
-        }
+    //             $course->course_name,
+    //             $course->course_description,
+    //             $course->content,
+    //             $course->participants,
+    //             $category,
+    //             $tags,
+    //             $teacher,
+    //             $course->date_creation,
+    //             $course->active,
+    //             $course->deleted_at
+    //         );
+    //     }
 
-        var_dump($courses->getTeacher()->getImage());
-        exit; 
+    //     var_dump($courses->getTeacher()->getImage());
+    //     exit; 
 
-        return $courses;
-    }
+    //     return $courses;
+    // }
 
 
 
