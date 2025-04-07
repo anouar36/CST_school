@@ -1,0 +1,32 @@
+<?php
+namespace App\Controllers;
+// require_once __DIR__."../../resources/views";
+
+use Twig\Loader\FilesystemLoader;
+use Twig\Environment;
+use Slim\Views\Twig;
+use Slim\Views\TwigMiddleware;
+use Slim\Routing\RouteContext;
+
+class View
+{
+    private static $twig;
+
+    public static function init()
+    {
+        $loader = new \Twig\Loader\FilesystemLoader('/var/www/html/resources/views'); 
+        self::$twig = new \Twig\Environment($loader, [
+            'cache' => false,
+        ]);
+
+    }
+
+    public static function render($template, $data = [])
+    {
+        if (!self::$twig) {
+            self::init();
+        }
+
+        echo self::$twig->render($template, $data); 
+    }
+}

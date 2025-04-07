@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Courses - TOTC</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: "#38B2AC", /* Teal-400 color */
+              foreground: "#ffffff",
+            },
+            secondary: {
+              DEFAULT: "#f3f4f6",
+              foreground: "#1f2937",
+            },
+            teal: {
+              400: "#38B2AC",
+              500: "#319795"
+            },
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://unpkg.com/lucide-icons/dist/umd/lucide.css" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-gray-50">
+  <!-- Header -->
+  <header class="bg-white shadow">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="index.html" class="text-2xl font-bold text-teal-500">
+        TOTC
+      </a>
+      <div class="flex items-center space-x-4">
+        <a href="history.html">
+          <button class="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50">History</button>
+        </a>
+        <a href="profile.html">
+          <button class="px-4 py-2 bg-teal-500 text-white rounded-md hover:bg-teal-400">My Profile</button>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Search Section -->
+  <section class="bg-teal-400 text-white py-12">
+    <div class="container mx-auto px-4">
+      <h1 class="text-3xl font-bold mb-6 text-center">
+        Find Your Perfect Course
+      </h1>
+      <form class="max-w-2xl mx-auto">
+        <div class="flex">
+          <div class="relative flex-1">
+            <input
+              type="text"
+              placeholder="Search for courses, topics, or instructors..."
+              class="w-full pl-10 py-3 pr-4 rounded-l-md border-0 focus:outline-none focus:ring-2 focus:ring-white/50 text-black"
+            />
+            <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5"></i>
+          </div>
+          <button type="submit" class="px-6 py-3 bg-white text-teal-500 font-medium rounded-r-md hover:bg-gray-100">
+            Search
+          </button>
+          <button
+            type="button"
+            class="px-4 py-3 bg-white/20 text-white rounded-md ml-2 hover:bg-white/30"
+            onclick="toggleFilters()"
+          >
+            <i data-lucide="filter" class="h-5 w-5"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <div id="filters" class="bg-white py-6 shadow-md hidden">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div>
+          <label class="block text-sm font-medium mb-2">
+            Category
+          </label>
+          <select class="w-full p-2 border rounded-md">
+            <option>All Categories</option>
+            <option>Programming</option>
+            <option>Design</option>
+            <option>Business</option>
+            <option>Marketing</option>
+            <option>Science</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-2">
+            Difficulty Level
+          </label>
+          <select class="w-full p-2 border rounded-md">
+            <option>All Levels</option>
+            <option>Beginner</option>
+            <option>Intermediate</option>
+            <option>Advanced</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-2">
+            Rating
+          </label>
+          <select class="w-full p-2 border rounded-md">
+            <option>Any Rating</option>
+            <option>4.5 & up</option>
+            <option>4.0 & up</option>
+            <option>3.5 & up</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-2">
+            Duration
+          </label>
+          <select class="w-full p-2 border rounded-md">
+            <option>Any Duration</option>
+            <option>Short (0-3 hours)</option>
+            <option>Medium (3-10 hours)</option>
+            <option>Long (10+ hours)</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex justify-end mt-4">
+        <button class="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 mr-2">
+          Reset Filters
+        </button>
+        <button class="px-4 py-2 bg-teal-500 text-white rounded-md hover:bg-teal-400">
+          Apply Filters
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Results -->
+  <main class="container mx-auto px-4 py-12">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold">
+        Popular Searches
+      </h2>
+      <div class="flex items-center">
+        <span class="text-sm text-gray-500 mr-2">Sort by:</span>
+        <select class="p-2 border rounded-md text-sm">
+          <option>Relevance</option>
+          <option>Newest</option>
+          <option>Highest Rated</option>
+          <option>Price: Low to High</option>
+          <option>Price: High to Low</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="mb-6 border-b">
+      <div class="flex -mb-px">
+        <button class="px-4 py-2 border-b-2 border-teal-500 text-teal-500 font-medium">Courses</button>
+        <button class="px-4 py-2 text-gray-500 hover:text-gray-700">Instructors</button>
+        <button class="px-4 py-2 text-gray-500 hover:text-gray-700">Resources</button>
+      </div>
+    </div>
+
+    <!-- Courses Tab Content -->
+    <div class="space-y-6">
+      <!-- Course Result 1 -->
+      
+      {% for course in courses %}
+      <div class="bg-white rounded-lg shadow overflow-hidden">
+        <div class="flex flex-col md:flex-row">
+          <div class="relative h-48 md:h-auto md:w-64 flex-shrink-0">
+          
+          <video class="object-cover w-full h-full" width="640" height="360"   controls>
+            <source src="../../../public/assets/Video/{{course.getContent}}" type="video/mp4">
+          </video>
+          </div>
+          <div class="p-6 flex-1">
+            <div class="flex flex-wrap gap-2 mb-2">
+           {% for tag in course.getTags %}
+              <span class="px-2 py-1 text-xs font-semibold bg-gray-100 text-gray-800 rounded-full"> {{ tag.getName}}</span>
+          {% endfor %}
+            </div>
+            
+            <a href="course/details/{{course.getCourseId}}" class="text-xl font-semibold hover:text-teal-500 transition-colors">
+              {{ course.getCourseName }}
+            </a>
+            <p class="text-sm text-gray-500 mt-1">
+              {{ course.getTeacher.getName }}
+            </p>
+            <p class="text-gray-700 mt-3 mb-4"> {{ course.getCourseDescription}}</p>
+            <div class="flex flex-wrap items-center justify-between">
+              <div class="flex items-center mb-2 md:mb-0">
+                <div class="flex items-center">
+                  <i data-lucide="star" class="h-4 w-4 text-yellow-400 fill-yellow-400"></i>
+                  <span class="ml-1 text-sm font-medium">
+                    4.8
+                  </span>
+                </div>
+                <span class="text-sm text-gray-500 ml-1">
+                  (245 reviews)
+                </span>
+                <span class="mx-2 text-gray-300">|</span>
+                <span class="text-sm text-gray-500">
+                  {{course.getParticipants}} students
+                </span>
+                <span class="mx-2 text-gray-300">|</span>
+                <span class="text-sm text-gray-500">
+                  {{course.getDateCreation}}  hours
+                </span>
+              </div>
+              <div class="font-bold text-lg">
+                 {{course.getPrice}} MAD
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      
+    <!-- Pagination -->
+    <div class="flex items-center justify-center space-x-1 mt-10">
+      <a href="#" class="px-4 py-2 border border-gray-300 rounded-md text-gray-600 hover:bg-gray-50 hover:text-teal-500 flex items-center">
+        <i data-lucide="chevron-left" class="h-4 w-4 mr-1"></i>
+        Previous
+      </a>
+      
+      <a href="#" class="px-4 py-2 border border-gray-300 rounded-md text-gray-600 hover:bg-gray-50 hover:text-teal-500">
+        1
+      </a>
+      
+      <a href="#" class="px-4 py-2 bg-teal-500 text-white rounded-md">
+        2
+      </a>
+      
+      <a href="#" class="px-4 py-2 border border-gray-300 rounded-md text-gray-600 hover:bg-gray-50 hover:text-teal-500">
+        3
+      </a>
+      
+      <span class="px-2 text-gray-600">...</span>
+      
+      <a href="#" class="px-4 py-2 border border-gray-300 rounded-md text-gray-600 hover:bg-gray-50 hover:text-teal-500">
+        8
+      </a>
+      
+      <a href="#" class="px-4 py-2 border border-gray-300 rounded-md text-gray-600 hover:bg-gray-50 hover:text-teal-500 flex items-center">
+        Next
+        <i data-lucide="chevron-right" class="h-4 w-4 ml-1"></i>
+      </a>
+    </div>
+
+    <!-- Results Count -->
+    <div class="text-center text-gray-500 mt-4">
+      Showing 4-6 of 24 results
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">TOTC</h3>
+          <p class="text-gray-300">
+            Premium learning platform for students and professionals.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">Quick Links</h4>
+          <ul class="space-y-2">
+            <li>
+              <a href="courses.html" class="text-gray-300 hover:text-white">
+                All Courses
+              </a>
+            </li>
+            <li>
+              <a href="exercises.html" class="text-gray-300 hover:text-white">
+                Exercises
+              </a>
+            </li>
+            <li>
+              <a href="history.html" class="text-gray-300 hover:text-white">
+                History
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">Support</h4>
+          <ul class="space-y-2">
+            <li>
+              <a href="contact.html" class="text-gray-300 hover:text-white">
+                Contact Us
+              </a>
+            </li>
+            <li>
+              <a href="faq.html" class="text-gray-300 hover:text-white">
+                FAQ
+              </a>
+            </li>
+            <li>
+              <a href="help.html" class="text-gray-300 hover:text-white">
+                Help Center
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">Subscribe</h4>
+          <p class="text-gray-300 mb-2">
+            Get the latest updates and offers
+          </p>
+          <div class="flex">
+            <input
+              type="email"
+              placeholder="Your email"
+              class="px-4 py-2 rounded-l-md w-full"
+            />
+            <button class="px-4 py-2 bg-teal-500 text-white rounded-r-md hover:bg-teal-400">Subscribe</button>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+        <p>&copy; <script>document.write(new Date().getFullYear())</script> TOTC. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+    
+    function toggleFilters() {
+      const filters = document.getElementById('filters');
+      if (filters.classList.contains('hidden')) {
+        filters.classList.remove('hidden');
+      } else {
+        filters.classList.add('hidden');
+      }
+    }
+  </script>
+</body>
+</html>

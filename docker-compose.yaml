@@ -5,11 +5,11 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: anwar36flow
-      MYSQL_DATABASE: test
+      MYSQL_DATABASE: CST_School
       MYSQL_USER: user
       MYSQL_PASSWORD: anwar36flow
     ports:
-      - "3306:3306"
+      - "3308:3306"
     volumes:
       - mysql_data:/var/lib/mysql
 
@@ -21,18 +21,18 @@ services:
       PMA_HOST: mysql
       MYSQL_ROOT_PASSWORD: anwar36flow
     ports:
-      - "8080:80"
+      - "8082:80"
 
   php:
     build:
       context: ./php
       dockerfile: Dockerfile
-    container_name: php_container
+    container_name: CST_School
     restart: always
     volumes:
-      - .:/var/www/html
+      - ./project:/var/www/html/
     ports:
-      - "80:80"
+      - "82:80"
       
   app:
     image: php:8.2-cli
