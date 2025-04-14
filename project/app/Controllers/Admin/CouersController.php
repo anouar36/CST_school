@@ -20,12 +20,13 @@ class CouersController {
         $allUsers = $user->index();
         $user = $user->getUser($_SESSION['user_id']);
         $numberCourses  = $Courses->clculeRows();
-        $allcourses = $Courses->allCoures();
-
-      
+        $allcourses = $Courses->index(6);
+        // var_dump($allcourses);
+        // exit    ;
        
-        View::render('Admin/couers.twig', [
-            'couerses'=> $allcourses,
+        View::render('Admin\couers.twig', [
+      
+            'couerses'=> $allcourses,   
             'numberCourses'=> $numberCourses['COUNT(*)'],
             'users' => $allUsers,
             'user' =>$user,
@@ -33,4 +34,6 @@ class CouersController {
         ]);
 
     }
+
+   
 }

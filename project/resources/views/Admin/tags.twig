@@ -71,16 +71,15 @@
                   </svg>
                   <span class="transition-all duration-200 group-hover:translate-x-1">Home</span>
                 </a>
-
-                <a href="couers" class="flex items-center px-3 py-2 text-sm rounded-md transition-all duration-200 text-gray-600 hover:text-gray-900 hover:bg-gray-50 hover:shadow-sm">
+                <a href="#" class="flex items-center px-3 py-2 text-sm rounded-md transition-all duration-200 bg-gray-100 text-gray-900 hover:bg-gray-200 hover:shadow-sm">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-3 flex-shrink-0 transition-transform duration-200 group-hover:scale-110">
-                    <rect x="3" y="3" width="18" height="18" rx="2"></rect>
-                    <path d="M3 9h18"></path>
-                    <path d="M9 21V9"></path>
+                    <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path>
+                    <path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path>
+                    <path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path>
                   </svg>
                   <span class="transition-all duration-200 group-hover:translate-x-1">Courses</span>
                 </a>
-                <a href="#" class="flex items-center px-3 py-2 text-sm rounded-md transition-all duration-200 bg-gray-100 text-gray-900 hover:bg-gray-200 hover:shadow-sm">
+                <a href="tags" class="flex items-center px-3 py-2 text-sm rounded-md transition-all duration-200 text-gray-600 hover:text-gray-900 hover:bg-gray-50 hover:shadow-sm">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-3 flex-shrink-0 transition-transform duration-200 group-hover:scale-110">
                     <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path>
                     <path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path>
@@ -129,6 +128,7 @@
       </div>
     </nav>
 
+
     <!-- Mobile menu button -->
     <button id="mobile-menu-button" type="button" class="lg:hidden fixed top-4 left-4 z-[70] p-2 rounded-lg bg-white shadow-md">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-gray-600">
@@ -151,14 +151,11 @@
               <a href="#" class="text-gray-700 hover:text-gray-900 transition-colors">
                 Home
               </a>
-              <span class="mx-2 text-gray-400">/</span>
-              <a href="#" class="text-gray-700 hover:text-gray-900 transition-colors">
-                Tags
-              </a>
             </div>
           </div>
 
           <div class="flex items-center gap-4">
+            
             <div class="relative">
               <input
                 type="text"
@@ -179,14 +176,108 @@
                 <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
               </svg>
             </button>
-            
-            <div class="relative">
-              <button class="relative cursor-pointer block rounded-full bg-gray-200 w-8 h-8 overflow-hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-600">
-                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="12" cy="7" r="4"></circle>
-                </svg>
+            <div class="relative" id="profile-dropdown">
+              <button id="profile-button" class="focus:outline-none">
+                <div class="relative cursor-pointer block">
+                  <img src="../../../public/assets/images/{{user.getImage}}" width="30" height="30" class="rounded-full ring-4 ring-white object-cover">
+                </div>
               </button>
+              <div id="profile-menu" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-zinc-200 z-50">
+                <div class="w-full max-w-sm mx-auto">
+                  <div class="relative overflow-hidden rounded-2xl border border-zinc-200">
+                    <div class="relative px-6 pt-12 pb-6">
+                      <div class="flex items-center gap-4 mb-8">
+                        <form action="saveImage" method="post" enctype="multipart/form-data" class="relative">
+                          <input type="file" id="profile-image-upload" name="image" class="hidden" />
+                          
+                          <label for="profile-image-upload" class="relative cursor-pointer block">
+                            <img 
+                              src="../../../public/assets/images/{{user.getImage}}" 
+                              alt="Profile Image" 
+                              width="72" 
+                              height="72" 
+                              class="rounded-full ring-4 ring-white object-cover"
+                              id="profile-image"
+                            />
+                            
+                            <div class="absolute inset-0 bg-black/50 rounded-full opacity-0 hover:opacity-100 flex items-center justify-center transition-opacity">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-white">
+                                <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path>
+                                <circle cx="12" cy="13" r="3"></circle>
+                              </svg>
+                            </div>
+                            
+                            <div class="absolute bottom-0 right-0 w-4 h-4 rounded-full bg-emerald-500 ring-2 ring-white"></div>
+                          </label>
+                          
+                          <button 
+                            type="submit" 
+                            class="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center transform translate-x-1/2 translate-y-1/2 shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 hidden"
+                            id="submit-button"
+                          >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                          </button>
+                        </form>
+                        <div class="flex-1">
+                          <h2 class="text-xl font-semibold text-zinc-900">{{user.getName}}</h2>
+                          <p class="text-zinc-600">Prompt Engineer</p>
+                        </div>
+                      </div>
+                      <div class="h-px bg-zinc-200 my-6"></div>
+                      <div class="space-y-2">
+                        <a href="#" class="flex items-center justify-between p-2 hover:bg-zinc-50 rounded-lg transition-colors duration-200">
+                          <div class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                              <rect width="20" height="14" x="2" y="5" rx="2"></rect>
+                              <line x1="2" x2="22" y1="10" y2="10"></line>
+                            </svg>
+                            <span class="text-sm font-medium text-zinc-900">Subscription</span>
+                          </div>
+                          <div class="flex items-center">
+                            <span class="text-sm text-zinc-500 mr-2">Free Trial</span>
+                          </div>
+                        </a>
+                        <a href="#" class="flex items-center justify-between p-2 hover:bg-zinc-50 rounded-lg transition-colors duration-200">
+                          <div class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                              <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+                              <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                            <span class="text-sm font-medium text-zinc-900">Settings</span>
+                          </div>
+                        </a>
+                        <a href="#" class="flex items-center justify-between p-2 hover:bg-zinc-50 rounded-lg transition-colors duration-200">
+                          <div class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                              <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                              <polyline points="14 2 14 8 20 8"></polyline>
+                            </svg>
+                            <span class="text-sm font-medium text-zinc-900">Terms & Policies</span>
+                          </div>
+                          <div class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                              <path d="M7 7h10v10"></path>
+                              <path d="M7 17 17 7"></path>
+                            </svg>
+                          </div>
+                        </a>
+                        <button type="button" class="w-full flex items-center justify-between p-2 hover:bg-zinc-50 rounded-lg transition-colors duration-200">
+                          <div class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                              <polyline points="16 17 21 12 16 7"></polyline>
+                              <line x1="21" x2="9" y1="12" y2="12"></line>
+                            </svg>
+                            <span class="text-sm font-medium text-zinc-900">Logout</span>
+                          </div>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </nav>
@@ -515,5 +606,9 @@
     
     
   </script>
+   <script src="../../../public/js/admin/anmationProfile.js"></script>
+   <script src="../../../public/js/admin/changeImage.js"></script>
+   <script src="../../../public/js/admin/ajaxSearch.js"></script>
+   <script src="../../../public/js/admin/ajaxAction.js"></script>
 </body>
 </html>

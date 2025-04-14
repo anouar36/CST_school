@@ -4,7 +4,7 @@ use Config\Database;
 use Exception;
 use PDOException;
 use PDO;
-class User
+class User 
 {
 
     private $id;

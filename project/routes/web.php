@@ -20,11 +20,13 @@ Route::get('logout', 'LoginController@logout');
 //page User  
 Route::get('student/{id}', 'StudentController@index');
 Route::get('student', 'StudentController@index');
+Route::post('student', 'StudentController@index');
 Route::get('teacher', 'TeacherController@index');
 
 
 //PAGES OF ADMIN 
 Route::get('admin'  , 'AdminController@index');
+Route::get('get/user/{id}', 'AdminController@getUser');
 // Route::get('student/dashborad'  , 'Studentdashborad@index');
 
 // block and unblock user
@@ -49,13 +51,35 @@ Route::post('admin/updateTag','TagsController@updateTag');
 
 
 // serch user
-Route::get('/search/users', 'AdminController@searchUsers');
+Route::get('/search/users/{id}', 'AdminController@searchUsers');
 
 // course-detail
 Route::get('course/details/{id}', 'CourseDetailController@index');
 
-//payment
+// payment
 Route::get('payment/{id}', 'PaymentController@index');
+
+// search student cours
+Route::get('/search/student/cours/{query}', 'StudentController@searchCourse');
+
+// history student 
+Route::post('student/profile', 'StudentController@profile');
+
+// verifyPayment
+Route::post('/verifyPayment', 'PaymentController@verifyPayment');
+// Route::get('verifyPayment', 'PaymentController@verifyPayment');
+
+// /student/resources
+Route::get('student/resources', 'StudentController@resources');
+// /student/exercies
+Route::get('/student/exercies/{id}', action: 'ExerciesController@indexWith');
+// /like/
+Route::post('/like', 'CourseDetailController@like');
+// quizzes
+Route::get('/student/quizz/{id}', 'QuizzesController@indexWith');
+Route::post('/student/quizz', 'QuizzesController@index');
+
+
 
 
 

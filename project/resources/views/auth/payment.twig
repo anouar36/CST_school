@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Payment - TOTC</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=AVBg4i2u8WLWgZvTRZ_C-R6JKvtjgrmgaMP7yTMZqDqZcFKRxJ2iSlproArnqzxez9zqZ1a8nl7hW9yK"></script>
+
   <script>
     tailwind.config = {
       theme: {
@@ -45,96 +47,11 @@
 
   <!-- Payment Section -->
   <div class="container mx-auto px-6 py-12">
-    <h1 class="text-3xl font-bold mb-8 text-center">Complete Your Purchase</h1>
+    <h1  class="text-3xl font-bold mb-8 text-center">Complete Your Purchase</h1>
     
     <div class="flex flex-col lg:flex-row gap-8">
       <!-- Payment Form -->
       <div class="lg:w-2/3">
-        <div class="bg-white rounded-lg shadow p-6 mb-6">
-          <h2 class="text-xl font-bold mb-6 flex items-center">
-            <span class="bg-teal-100 p-2 rounded-full mr-3">
-              <i data-lucide="credit-card" class="h-5 w-5 text-teal-500"></i>
-            </span>
-            Payment Method
-          </h2>
-          
-          <div class="mb-6">
-            <div class="flex flex-wrap gap-4 mb-6">
-              <label class="flex items-center p-4 border rounded-full cursor-pointer hover:border-teal-400 transition-colors w-full sm:w-auto">
-                <input type="radio" name="payment-method" class="mr-2" checked>
-                <i data-lucide="credit-card" class="h-5 w-5 mr-2 text-gray-600"></i>
-                <span>Credit Card</span>
-              </label>
-              <label class="flex items-center p-4 border rounded-full cursor-pointer hover:border-teal-400 transition-colors w-full sm:w-auto">
-                <input type="radio" name="payment-method" class="mr-2">
-                <svg class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="#00457C">
-                  <path d="M7.076 21.337H2.47a.5.5 0 0 1-.5-.5V3.163a.5.5 0 0 1 .5-.5h4.606a.5.5 0 0 1 .5.5v17.674a.5.5 0 0 1-.5.5zM16.659 21.337h-4.606a.5.5 0 0 1-.5-.5V3.163a.5.5 0 0 1 .5-.5h4.606a.5.5 0 0 1 .5.5v17.674a.5.5 0 0 1-.5.5zM21.53 12.217c0 4.83-2.235 9.12-5.854 9.12-3.618 0-5.853-4.29-5.853-9.12 0-4.83 2.235-9.12 5.853-9.12 3.619 0 5.854 4.29 5.854 9.12z"/>
-                </svg>
-                <span>PayPal</span>
-              </label>
-              <label class="flex items-center p-4 border rounded-full cursor-pointer hover:border-teal-400 transition-colors w-full sm:w-auto">
-                <input type="radio" name="payment-method" class="mr-2">
-                <i data-lucide="landmark" class="h-5 w-5 mr-2 text-gray-600"></i>
-                <span>Bank Transfer</span>
-              </label>
-            </div>
-            
-            <!-- Credit Card Form -->
-            <div class="space-y-4">
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Card Number</label>
-                <div class="relative">
-                  <input 
-                    type="text" 
-                    placeholder="1234 5678 9012 3456" 
-                    class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent"
-                  >
-                  <div class="absolute right-3 top-1/2 transform -translate-y-1/2 flex space-x-1">
-                    <svg class="h-6 w-6" viewBox="0 0 24 24" fill="#1A1F71">
-                      <path d="M9.112 8.262L5.97 15.758H3.92L2.374 9.775c-.094-.368-.175-.503-.461-.658C1.447 8.864.677 8.627 0 8.479l.046-.217h3.3a.904.904 0 0 1 .894.764l.817 4.338 2.018-5.102h2.037zm8.033 5.049c.008-1.979-2.736-2.088-2.717-2.972.006-.269.262-.555.822-.628a3.66 3.66 0 0 1 1.913.336l.34-1.59a5.207 5.207 0 0 0-1.814-.333c-1.917 0-3.266 1.02-3.278 2.479-.012 1.079.963 1.68 1.698 2.04.756.367 1.01.603 1.006.931-.005.504-.603.725-1.16.734-.975.016-1.541-.263-1.99-.473l-.351 1.642c.453.208 1.289.39 2.156.398 2.037 0 3.37-1.006 3.375-2.564zm5.061 2.447H24l-1.565-7.496h-1.656a.883.883 0 0 0-.826.55l-2.909 6.946h2.036l.405-1.12h2.488l.233 1.12zm-2.169-2.616l1.03-2.835.59 2.835h-1.62zm-2.739-4.88l-1.601 7.496H13.76l1.595-7.496h1.943z"/>
-                    </svg>
-                    <svg class="h-6 w-6" viewBox="0 0 24 24" fill="#FF5F00">
-                      <path d="M15.245 17.831h-6.49V6.168h6.49v11.663z" fill="#FF5F00"/>
-                      <path d="M9.223 12A7.404 7.404 0 0 1 12 6.169a7.417 7.417 0 0 0-4.511-1.535A7.416 7.416 0 0 0 0 12a7.416 7.416 0 0 0 7.489 7.366A7.417 7.417 0 0 0 12 17.831 7.404 7.404 0 0 1 9.223 12z" fill="#EB001B"/>
-                      <path d="M24 12a7.416 7.416 0 0 1-7.489 7.366A7.418 7.418 0 0 1 12 17.831a7.404 7.404 0 0 0 2.777-5.831A7.404 7.404 0 0 0 12 6.169a7.418 7.418 0 0 1 4.511-1.535A7.416 7.416 0 0 1 24 12z" fill="#F79E1B"/>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Cardholder Name</label>
-                  <input 
-                    type="text" 
-                    placeholder="{{name}}" 
-                    value="{{name}}"
-                    class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent"
-                  >
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
-                    <input 
-                      type="text" 
-                      placeholder="MM/YY" 
-                      class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent"
-                    >
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">CVC</label>
-                    <input 
-                      type="text" 
-                      placeholder="123" 
-                      class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent"
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
         <div class="bg-white rounded-lg shadow p-6">
           <h2 class="text-xl font-bold mb-6 flex items-center">
             <span class="bg-blue-100 p-2 rounded-full mr-3">
@@ -245,8 +162,10 @@
             
             <div class="flex justify-between text-sm mb-2">
               <span>Original Price:</span>
-              <span>$99.99</span>
+              <span> {{ course.getPrice }}MAD</span>
             </div>
+            <input type="hidden" id="price" value="{{ course.getPrice }}">
+            <input type="hidden" id="courseId" value="{{ course.getCourseId }}">
             
             <div class="flex justify-between text-sm mb-2">
               <span>Discount:</span>
@@ -257,7 +176,7 @@
           <div class="mb-6">
             <div class="flex justify-between font-medium mb-4">
               <span>Total:</span>
-              <span class="text-lg">$89.99</span>
+              <span class="text-lg"> {{ course.getPrice }}MAD</span>
             </div>
             
             <div class="text-sm text-gray-500 mb-4">
@@ -281,10 +200,13 @@
                 <span>I agree to the <a href="#" class="text-teal-500 hover:underline">Terms of Service</a> and <a href="#" class="text-teal-500 hover:underline">Privacy Policy</a></span>
               </label>
             </div>
+
+                          <div id="paypal-button-container"></div>
+
             
-            <button class="w-full py-3 bg-teal-500 text-white rounded-full hover:bg-teal-400 font-medium">
+            {# <button id="paypal-button-container" class="w-full py-3 bg-teal-500 text-white rounded-full hover:bg-teal-400 font-medium">
               Complete Payment
-            </button>
+            </button> #}
             
             <p class="text-xs text-center text-gray-500 mt-4">
               Your payment information is secure. We use industry-standard encryption to protect your data.
@@ -375,8 +297,13 @@
 
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  <script>
-    lucide.createIcons();
-  </script>
+  <script src="../../../public/js/pyment.js" ></script>
+    
+
+  
+  
 </body>
 </html>
+
+
+

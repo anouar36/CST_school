@@ -21,7 +21,7 @@ class AdminController{
         $allUsers = $user->index();
         $user = $user->getUser($_SESSION['user_id']);
         $numberCourses  = $Courses->clculeRows();
-        $allcourses = $Courses->allCoures();
+        $allcourses = $Courses->index(6);
 
         var_dump("admin");
     
@@ -33,6 +33,31 @@ class AdminController{
     
         ]);
     }
+
+    public function getUser($id){
+        $user = new UserRepositorie;
+        $userDetail = $user->getUser($id);
+        if ($userDetail) {
+            echo json_encode([
+                'status' => 'success',
+                'data' => [
+                    'id' => $id,
+                    'name' => $userDetail->getName(),
+                    'email' => $userDetail->getEmail(),
+                    'password' => $userDetail->getPassword(),
+                    'active' => $userDetail->getIsActive(),
+                    'image' => $userDetail->getImage(),
+                    'isblock' => $userDetail->getIsBlock()
+                ]
+            ]);
+        }else{
+            return json_encode([
+                'status' => 'error',
+                'message' => 'User not found'
+            ]);
+        }
+    }
+
 
     public function block(){
         $id= $this->id($_GET['url']);
@@ -93,11 +118,8 @@ class AdminController{
     }
 
 
-    public function searchUsers()
+    public function searchUsers($query)
     {
-       
-        $query = $_GET['query'] ?? '';
-
         $userRepositorie = new UserRepositorie();
         $user = $userRepositorie->getUser($_SESSION['user_id']);
         $users = $userRepositorie->searchUsers($query);
@@ -113,6 +135,7 @@ class AdminController{
                 'is_block' => $u->getIsBlock(),
                 'image' => $u->getImage(),
             ];
+            
         }
     
     // Convert the array to JSON
@@ -121,4 +144,5 @@ class AdminController{
 
         return   $usersArray;
     }
+
 }

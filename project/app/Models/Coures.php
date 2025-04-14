@@ -21,8 +21,9 @@ class Coures {
     private $deleted_at;
     private $date_creation;
 
+    private $interaction;
+
     public function __construct(
-        
         $course_name = null, 
         $price = null,
         $course_description = null, 
@@ -38,7 +39,10 @@ class Coures {
         $course_id = null,
         $duration= null,
         $Level = null,
-        $introduction = null
+        $introduction = null,
+        $interaction = null
+       
+
     ) {
         $this->course_name = $course_name;
         $this->price = $price;
@@ -51,17 +55,17 @@ class Coures {
         $this->start_date = $start_date;
         $this->active = $active;
         $this->deleted_at = $deleted_at;
-        $this->date_creation = $date_creation ?? date('Y-m-d H:i:s'); 
+        $this->date_creation = $date_creation; 
         $this->course_id = $course_id;
         $this->duration = $duration;
         $this->Level = $Level;
         $this->introduction = $introduction;
+        $this->interaction = $interaction;
     }
 
-    public function getCourseId() {
-        return $this->course_id;
+    public function getCourseId () {
+         return $this->course_id;
     }
-
     public function setCourseId($course_id) {
         $this->course_id = $course_id;
     }
@@ -81,6 +85,7 @@ class Coures {
     public function setPrice($price) {
         $this->price = $price;
     }
+
 
 
 
@@ -193,6 +198,13 @@ class Coures {
     }
     public function getIntroduction() {
         return $this->introduction;
+    }
+
+    public function getInteraction() {
+        return $this->interaction;
+    }
+    public function setInteraction($interaction) {
+        $this->interaction = $interaction;
     }
 
 }

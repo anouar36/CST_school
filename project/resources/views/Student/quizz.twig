@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript DOM Manipulation Quiz - TOTC</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            teal: {
+              400: "#38B2AC",
+              500: "#319795"
+            },
+            yellow: {
+              400: "#F6AD55"
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-screen bg-gray-50 font-sans">
+  <!-- Header -->
+  <header class="bg-teal-400 text-white shadow">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="index.html" class="text-2xl font-bold">
+        TOTC
+      </a>
+      <div class="hidden md:flex space-x-8">
+        <a href="#" class="hover:text-teal-200">Home</a>
+        <a href="#" class="hover:text-teal-200">Courses</a>
+        <a href="#" class="hover:text-teal-200">Careers</a>
+        <a href="#" class="hover:text-teal-200">Blog</a>
+        <a href="#" class="hover:text-teal-200">About Us</a>
+      </div>
+      <div class="flex items-center space-x-4">
+        <a href="#">
+          <button class="bg-white/20 text-white px-4 py-2 rounded-full hover:bg-white/30 transition-colors">History</button>
+        </a>
+        <a href="#">
+          <button class="bg-white text-teal-500 px-6 py-2 rounded-full hover:bg-teal-100 transition-colors">My Profile</button>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Quiz Content -->
+  <div class="container mx-auto px-4 py-8">
+    <!-- Breadcrumb -->
+    <nav class="flex mb-6" aria-label="Breadcrumb">
+      <ol class="inline-flex items-center space-x-1 md:space-x-3">
+        <li class="inline-flex items-center">
+          <a href="index.html" class="text-gray-700 hover:text-teal-500">
+            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+            </svg>
+            Home
+          </a>
+        </li>
+        <li>
+          <div class="flex items-center">
+            <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+            </svg>
+            <a href="#" class="ml-1 text-gray-700 hover:text-teal-500 md:ml-2">Web Development Course</a>
+          </div>
+        </li>
+        <li>
+          <div class="flex items-center">
+            <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+            </svg>
+            <a href="#" class="ml-1 text-gray-700 hover:text-teal-500 md:ml-2">Exercises</a>
+          </div>
+        </li>
+        <li aria-current="page">
+          <div class="flex items-center">
+            <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="ml-1 text-gray-500 md:ml-2 font-medium">JavaScript DOM Manipulation Quiz</span>
+          </div>
+        </li>
+      </ol>
+    </nav>
+
+    <!-- Quiz Container -->
+    <div class="bg-white rounded-xl shadow-sm p-8">
+      <!-- Quiz Header -->
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 border-b pb-6">
+        <div>
+          <h1 class="text-2xl font-bold text-gray-800">JavaScript DOM Manipulation</h1>
+          <p class="text-gray-600 mt-1">Quiz Assessment - Test your knowledge</p>
+        </div>
+        <div class="mt-4 md:mt-0 flex items-center">
+          <div class="bg-teal-100 text-teal-800 px-3 py-1 rounded-full text-sm font-medium">
+            Time remaining: <span id="timer">15:00</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiz Instructions -->
+      <div class="bg-gray-50 rounded-lg p-4 mb-8">
+        <h2 class="font-semibold text-gray-800 mb-2">Quiz Instructions</h2>
+        <ul class="list-disc list-inside text-gray-700 space-y-1">
+          <li>This quiz contains 10 multiple-choice questions</li>
+          <li>You have 15 minutes to complete the quiz</li>
+          <li>Each question is worth 1 point</li>
+          <li>You can navigate between questions using the Previous and Next buttons</li>
+          <li>Click Submit when you're ready to finish the quiz</li>
+        </ul>
+      </div>
+
+      <!-- Quiz Progress -->
+      <div class="mb-8">
+        <div class="flex items-center mb-4">
+          <div class="w-full bg-gray-200 rounded-full h-2.5">
+            <div id="progressBar" class="bg-teal-500 h-2.5 rounded-full" style="width: 10%"></div>
+          </div>
+          <span class="ml-4 text-sm font-medium text-gray-700">Question <span id="currentQuestion">1</span>/10</span>
+        </div>
+      </div>
+
+      <!-- Quiz Questions Container -->
+      <div id="questionsContainer">
+        <!-- Question 1 -->
+        {% for question in quizzes.getQuestions %}
+        <div class="question-item" data-question="1">
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold mb-2">{{question.getQuestion}}</h3>
+            <div class="space-y-3 mt-4">
+            {% for answer in question.getAnswers %}
+              <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="radio" name="q2" value="{{answer.getPlace}}" class="h-4 w-4 text-teal-500 focus:ring-teal-400">
+                <h3 class="text-sm text-gray-500 ml-2">({{answer.getPlace}})</h3>
+                <span class="ml-3">{{answer.getAnswer}}</span>
+              </label>
+            {% endfor %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+        
+
+        <!-- More questions would be added here -->
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="flex justify-between mt-8">
+        <button id="prevButton" class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+          Previous
+        </button>
+        <button id="nextButton" class="px-6 py-2 bg-teal-500 text-white rounded-md hover:bg-teal-400">
+          Next
+        </button>
+      </div>
+
+      <!-- Submit Quiz Button (initially hidden) -->
+      <div id="submitContainer" class="hidden mt-8 text-center">
+        <button id="submitQuiz" class="px-8 py-3 bg-teal-500 text-white rounded-md hover:bg-teal-400 font-medium">
+          Submit Quiz
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz Results (initially hidden) -->
+  <div id="quizResults" class="container mx-auto px-4 py-8 hidden">
+    <div class="bg-white rounded-xl shadow-sm p-8">
+      <div class="text-center py-8">
+        <div class="inline-block p-4 rounded-full bg-teal-100 mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-800 mb-2">Quiz Completed!</h2>
+        <p class="text-xl text-gray-600 mb-6">You scored <span id="scoreDisplay" class="font-bold text-teal-500">7/10</span></p>
+        
+        <div class="max-w-md mx-auto bg-gray-50 rounded-lg p-6 mb-8">
+          <h3 class="font-semibold text-gray-700 mb-3">Performance Summary</h3>
+          <div class="space-y-2">
+            <div class="flex justify-between">
+              <span>Correct Answers:</span>
+              <span id="correctAnswers" class="font-medium">7</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Incorrect Answers:</span>
+              <span id="incorrectAnswers" class="font-medium">3</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Completion Time:</span>
+              <span id="completionTime" class="font-medium">8:45</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="flex flex-wrap justify-center gap-4">
+          <button id="reviewAnswers" class="px-6 py-2 border border-teal-500 text-teal-500 rounded-md hover:bg-teal-50">
+            Review Answers
+          </button>
+          <button id="retakeQuiz" class="px-6 py-2 bg-teal-500 text-white rounded-md hover:bg-teal-400">
+            Retake Quiz
+          </button>
+          <a href="index.html" class="px-6 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700 inline-block">
+            Back to Course
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-8 mt-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">TOTC</h3>
+          <p class="text-gray-300">
+            Premium learning platform for students and professionals.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">Quick Links</h4>
+          <ul class="space-y-2">
+            <li>
+              <a href="#" class="text-gray-300 hover:text-white">
+                All Courses
+              </a>
+            </li>
+            <li>
+              <a href="#" class="text-gray-300 hover:text-white">
+                Exercises
+              </a>
+            </li>
+            <li>
+              <a href="#" class="text-gray-300 hover:text-white">
+                History
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">Support</h4>
+          <ul class="space-y-2">
+            <li>
+              <a href="#" class="text-gray-300 hover:text-white">
+                Contact Us
+              </a>
+            </li>
+            <li>
+              <a href="#" class="text-gray-300 hover:text-white">
+                FAQ
+              </a>
+            </li>
+            <li>
+              <a href="#" class="text-gray-300 hover:text-white">
+                Help Center
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">Subscribe</h4>
+          <p class="text-gray-300 mb-2">
+            Get the latest updates and offers
+          </p>
+          <div class="flex">
+            <input
+              type="email"
+              placeholder="Your email"
+              class="px-4 py-2 rounded-l-md w-full"
+            />
+            <button class="px-4 py-2 bg-teal-500 text-white rounded-r-md hover:bg-teal-400">Subscribe</button>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+        <p>&copy; <script>document.write(new Date().getFullYear())</script> TOTC. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Quiz functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // Quiz variables
+      let currentQuestionIndex = 1;
+      const totalQuestions = 5; // We have 5 questions in this example
+      let userAnswers = {};
+      let timerInterval;
+      let timeLeft = 15 * 60; // 15 minutes in seconds
+      let startTime = new Date();
+      
+      // DOM elements
+      const prevButton = document.getElementById('prevButton');
+      const nextButton = document.getElementById('nextButton');
+      const submitContainer = document.getElementById('submitContainer');
+      const submitQuiz = document.getElementById('submitQuiz');
+      const progressBar = document.getElementById('progressBar');
+      const currentQuestionDisplay = document.getElementById('currentQuestion');
+      const timerDisplay = document.getElementById('timer');
+      const quizContainer = document.querySelector('.bg-white.rounded-xl');
+      const quizResults = document.getElementById('quizResults');
+      
+      // Initialize quiz
+      initQuiz();
+      
+      function initQuiz() {
+        // Disable previous button on first question
+        prevButton.disabled = true;
+        
+        // Start timer
+        startTimer();
+        
+        // Set up event listeners
+        prevButton.addEventListener('click', goToPreviousQuestion);
+        nextButton.addEventListener('click', goToNextQuestion);
+        submitQuiz.addEventListener('click', submitQuizHandler);
+        
+        // Set up review and retake buttons
+        document.getElementById('reviewAnswers').addEventListener('click', reviewAnswers);
+        document.getElementById('retakeQuiz').addEventListener('click', retakeQuiz);
+        
+        // Set up radio button change listeners
+        setupRadioListeners();
+      }
+      
+      function setupRadioListeners() {
+        const radioButtons = document.querySelectorAll('input[type="radio"]');
+        radioButtons.forEach(radio => {
+          radio.addEventListener('change', function() {
+            const questionName = this.name;
+            const questionNumber = questionName.substring(1); // Extract number from q1, q2, etc.
+            userAnswers[questionNumber] = this.value;
+          });
+        });
+      }
+      
+      function goToPreviousQuestion() {
+        if (currentQuestionIndex > 1) {
+          // Hide current question
+          hideQuestion(currentQuestionIndex);
+          
+          // Show previous question
+          currentQuestionIndex--;
+          showQuestion(currentQuestionIndex);
+          
+          // Update UI
+          updateQuizUI();
+        }
+      }
+      
+      function goToNextQuestion() {
+        if (currentQuestionIndex < totalQuestions) {
+          // Hide current question
+          hideQuestion(currentQuestionIndex);
+          
+          // Show next question
+          currentQuestionIndex++;
+          showQuestion(currentQuestionIndex);
+          
+          // Update UI
+          updateQuizUI();
+        }
+      }
+      
+      function hideQuestion(index) {
+        const question = document.querySelector(`.question-item[data-question="${index}"]`);
+        if (question) {
+          question.classList.add('hidden');
+        }
+      }
+      
+      function showQuestion(index) {
+        const question = document.querySelector(`.question-item[data-question="${index}"]`);
+        if (question) {
+          question.classList.remove('hidden');
+        }
+      }
+      
+      function updateQuizUI() {
+        // Update progress bar
+        const progress = (currentQuestionIndex / totalQuestions) * 100;
+        progressBar.style.width = `${progress}%`;
+        
+        // Update question number display
+        currentQuestionDisplay.textContent = currentQuestionIndex;
+        
+        // Update button states
+        prevButton.disabled = currentQuestionIndex === 1;
+        
+        if (currentQuestionIndex === totalQuestions) {
+          nextButton.classList.add('hidden');
+          submitContainer.classList.remove('hidden');
+        } else {
+          nextButton.classList.remove('hidden');
+          submitContainer.classList.add('hidden');
+        }
+        
+        // Restore any previously selected answers
+        if (userAnswers[currentQuestionIndex]) {
+          const selectedRadio = document.querySelector(`input[name="q${currentQuestionIndex}"][value="${userAnswers[currentQuestionIndex]}"]`);
+          if (selectedRadio) {
+            selectedRadio.checked = true;
+          }
+        }
+      }
+      
+      function startTimer() {
+        updateTimerDisplay();
+        timerInterval = setInterval(function() {
+          timeLeft--;
+          updateTimerDisplay();
+          
+          if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            submitQuizHandler(); // Auto-submit when time is up
+          }
+        }, 1000);
+      }
+      
+      function updateTimerDisplay() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      }
+      
+      function submitQuizHandler() {
+        // Stop the timer
+        clearInterval(timerInterval);
+        
+        // Calculate score
+        const correctAnswers = calculateScore();
+        const score = correctAnswers.length;
+        const incorrectAnswers = totalQuestions - score;
+        
+        // Update results display
+        document.getElementById('scoreDisplay').textContent = `${score}/${totalQuestions}`;
+        document.getElementById('correctAnswers').textContent = score;
+        document.getElementById('incorrectAnswers').textContent = incorrectAnswers;
+        
+        // Calculate time taken
+        const endTime = new Date();
+        const timeSpent = Math.floor((endTime - startTime) / 1000);
+        const minutesSpent = Math.floor(timeSpent / 60);
+        const secondsSpent = timeSpent % 60;
+        document.getElementById('completionTime').textContent = `${minutesSpent}:${secondsSpent.toString().padStart(2, '0')}`;
+        
+        // Show results
+        quizContainer.classList.add('hidden');
+        quizResults.classList.remove('hidden');
+      }
+      
+      function calculateScore() {
+        // In a real app, you would compare user answers with correct answers
+        // For this example, we'll use a predefined set of correct answers
+        const correctAnswerKey = {
+          '1': 'b', // document.getElementById()
+          '2': 'c', // onclick
+          '3': 'a', // document.createElement()
+          '4': 'c', // element.textContent
+          '5': 'b'  // event.preventDefault()
+        };
+        
+        return Object.keys(userAnswers).filter(question => 
+          userAnswers[question] === correctAnswerKey[question]
+        );
+      }
+      
+      function reviewAnswers() {
+        // This would show a detailed review of answers
+        alert('This would show a detailed review of your answers with explanations for each question.');
+      }
+      
+      function retakeQuiz() {
+        // Reset quiz state
+        currentQuestionIndex = 1;
+        userAnswers = {};
+        timeLeft = 15 * 60;
+        startTime = new Date();
+        
+        // Clear all radio selections
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+          radio.checked = false;
+        });
+        
+        // Show first question, hide others
+        document.querySelectorAll('.question-item').forEach((question, index) => {
+          if (index === 0) {
+            question.classList.remove('hidden');
+          } else {
+            question.classList.add('hidden');
+          }
+        });
+        
+        // Reset UI
+        updateQuizUI();
+        
+        // Restart timer
+        startTimer();
+        
+        // Show quiz content, hide results
+        quizContainer.classList.remove('hidden');
+        quizResults.classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+</html>

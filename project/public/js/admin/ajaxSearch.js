@@ -3,7 +3,9 @@ document.getElementById("searchInput").addEventListener("keyup", function() {
 
     // Setup AJAX request
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", "/search/users?query=" + encodeURIComponent(query), true);
+    xhr.open("GET", "/search/users/" + encodeURIComponent(query), true);
+    console.log("Searching for:", query);
+    console.log("/search/users/" + encodeURIComponent(query));
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
             // Update the table with the new results

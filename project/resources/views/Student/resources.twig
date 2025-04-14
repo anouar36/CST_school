@@ -170,9 +170,9 @@
     <!-- Tabs -->
     <div class="mb-6 border-b">
       <div class="flex -mb-px">
-        <button id="buttonCourses" class="px-4 py-2 border-b-2 border-teal-500 text-teal-500 font-medium">Courses</button>
-        <button id="buttonInstructors" class="px-4 py-2 text-gray-500 hover:text-gray-700">Instructors</button>
-        <button id="buttonResources" class="px-4 py-2 text-gray-500 hover:text-gray-700">Resources</button>
+        <button class="px-4 py-2 text-gray-500 hover:text-gray-700">Courses</button>
+        <button class="px-4 py-2 text-gray-500 hover:text-gray-700">Instructors</button>
+        <button class="px-4 py-2 border-b-2 border-teal-500 text-teal-500 font-medium">Resources</button>
       </div>
     </div>
 
@@ -196,7 +196,7 @@
           {% endfor %}
             </div>
             
-            <a href="/course/details/{{course.getCourseId}}" class="text-xl font-semibold hover:text-teal-500 transition-colors">
+            <a href="course/details/{{course.getCourseId}}" class="text-xl font-semibold hover:text-teal-500 transition-colors">
               {{ course.getCourseName }}
             </a>
             <p class="text-sm text-gray-500 mt-1">
@@ -231,7 +231,6 @@
         </div>
       </div>
       {% endfor %}
-      </div>
 
       
     <!-- Pagination -->
@@ -349,142 +348,8 @@
 
   <!-- Lucide Icons -->
  
-      <script>
-      console.log("hello");
-      let buttonCourses = document.getElementById('buttonCourses');
-      let buttonResources = document.getElementById('buttonResources');
-      let containerCouerses = document.getElementById('cours');
-      buttonResources.addEventListener('click', function(){
-
-        buttonResources.classList.remove('px-4', 'py-2', 'text-gray-500', 'hover:text-gray-700');
-        buttonCourses.classList.remove('px-4' ,'py-2', 'border-b-2', 'border-teal-500', 'text-teal-500', 'font-medium');
-        buttonResources.classList.add('px-4' ,'py-2', 'border-b-2', 'border-teal-500', 'text-teal-500', 'font-medium');
-        buttonCourses.classList.add('px-4', 'py-2', 'text-gray-500', 'hover:text-gray-700');
-        containerCouerses.innerHTML = ''; 
-
-        let xhr = new XMLHttpRequest();
-        xhr.open('GET', '/student/resources', true);
-        xhr.onreadystatechange =  function(){
-          if(xhr.readyState==4 && xhr.status==200){
-            console.log('hello anwar charai');
-            console.log(xhr.responseText);
-            let courses = JSON.parse(xhr.responseText);  
-            let coursesHtml = '';
-            courses.forEach(course => {
-            coursesHtml += `
-              <div class="flex flex-col md:flex-row">
-                <div class="relative h-48 md:h-auto md:w-64 flex-shrink-0">
-                  <video class="object-cover w-full h-full" width="640" height="360" controls>
-                    <source src="../../../public/assets/Video/${course.content}" type="video/mp4">
-                  </video>
-                </div>
-                <div class="p-6 flex-1">
-                  <a href="/course/details/${course.id}" class="text-xl font-semibold hover:text-teal-500 transition-colors">
-                    ${course.name}
-                  </a>
-                  <p class="text-sm text-gray-500 mt-1">
-                    ${course.teacher}
-                  </p>
-                  <p class="text-gray-700 mt-3 mb-4">${course.description}</p>
-                  <div class="flex flex-wrap items-center justify-between">
-                    <div class="flex items-center mb-2 md:mb-0">
-                      <span class="text-sm text-gray-500">
-                        ${course.participants} students
-                      </span>
-                      <span class="mx-2 text-gray-300">|</span>
-                      <span class="text-sm text-gray-500">
-                        ${course.creation_date}
-                      </span>
-                    </div>
-                    <div class="font-bold text-lg">
-                      ${course.price} MAD
-                    </div>
-                  </div>
-                </div>
-              </div>
-            `;
-          });
-          containerCouerses.innerHTML = coursesHtml;
-        }
-      }
-      xhr.send();
-
-
-
-
-
-      })
-
-      
-      console.log("anouar");
-      buttonCourses.addEventListener('click', function(){
-
-        buttonResources.classList.remove('px-4' ,'py-2', 'border-b-2', 'border-teal-500', 'text-teal-500', 'font-medium');
-        buttonCourses.classList.remove('px-4', 'py-2', 'text-gray-500', 'hover:text-gray-700');
-        buttonResources.classList.add('px-4', 'py-2', 'text-gray-500', 'hover:text-gray-700');
-        buttonCourses.classList.add('px-4' ,'py-2', 'border-b-2', 'border-teal-500', 'text-teal-500', 'font-medium');
-
-        containerCouerses.innerHTML = `
-        {% for course in courses %}
-      <div class="bg-white rounded-lg shadow overflow-hidden">
-        <div class="flex flex-col md:flex-row">
-          <div class="relative h-48 md:h-auto md:w-64 flex-shrink-0">
-          
-          <video class="object-cover w-full h-full" width="640" height="360"   controls>
-            <source src="../../../public/assets/Video/{{course.getContent}}" type="video/mp4">
-          </video>
-          </div>
-          <div class="p-6 flex-1">
-            <div class="flex flex-wrap gap-2 mb-2">
-           {% for tag in course.getTags %}
-              <span class="px-2 py-1 text-xs font-semibold bg-gray-100 text-gray-800 rounded-full"> {{ tag.getName}}</span>
-          {% endfor %}
-            </div>
-            
-            <a href="/course/details/{{course.getCourseId}}" class="text-xl font-semibold hover:text-teal-500 transition-colors">
-              {{ course.getCourseName }}
-            </a>
-            <p class="text-sm text-gray-500 mt-1">
-              {{ course.getTeacher.getName }}
-            </p>
-            <p class="text-gray-700 mt-3 mb-4"> {{ course.getCourseDescription}}</p>
-            <div class="flex flex-wrap items-center justify-between">
-              <div class="flex items-center mb-2 md:mb-0">
-                <div class="flex items-center">
-                  <i data-lucide="star" class="h-4 w-4 text-yellow-400 fill-yellow-400"></i>
-                  <span class="ml-1 text-sm font-medium">
-                    4.8
-                  </span>
-                </div>
-                <span class="text-sm text-gray-500 ml-1">
-                  (245 reviews)
-                </span>
-                <span class="mx-2 text-gray-300">|</span>
-                <span class="text-sm text-gray-500">
-                  {{course.getParticipants}} students
-                </span>
-                <span class="mx-2 text-gray-300">|</span>
-                <span class="text-sm text-gray-500">
-                  {{course.getDateCreation}}  hours
-                </span>
-              </div>
-              <div class="font-bold text-lg">
-                 {{course.getPrice}} MAD
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      {% endfor %}`;
-        
-        
-      })
-
-      
-      
-      </script>
-     <script src="../../../public/js/ajaxSearchCours.js"></script>
-
+     <script src="../../../public/js/ajaxSearchCours.js
+"></script>
 
      
      

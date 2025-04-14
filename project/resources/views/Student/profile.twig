@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile - TOTC</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            teal: {
+              400: "#38B2AC",
+              500: "#319795"
+            },
+            orange: {
+              400: "#F6AD55"
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://unpkg.com/lucide-icons/dist/umd/lucide.css" rel="stylesheet">
+</head>
+<body class="font-sans bg-gray-50">
+  <!-- Navigation -->
+  <nav class="bg-teal-400 text-white py-4 px-6">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="font-bold text-2xl">TOTC</div>
+      <div class="hidden md:flex space-x-8">
+        <a href="index.html" class="hover:text-teal-200">Home</a>
+        <a href="courses.html" class="hover:text-teal-200">Courses</a>
+        <a href="careers.html" class="hover:text-teal-200">Careers</a>
+        <a href="blog.html" class="hover:text-teal-200">Blog</a>
+        <a href="about.html" class="hover:text-teal-200">About Us</a>
+      </div>
+      <div class="flex space-x-4">
+        <a href="profile.html">
+          <button class="bg-white text-teal-500 px-6 py-2 rounded-full hover:bg-teal-100">My Profile</button>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-6 py-12">
+    <!-- Profile Header -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+      <div class="flex flex-col md:flex-row items-center md:items-start">
+        <div class="mb-6 md:mb-0 md:mr-8">
+          <div class="relative">
+            <img 
+              src="https://placehold.co/150x150" 
+              alt="Profile Picture" 
+              class="w-32 h-32 rounded-full object-cover border-4 border-teal-400"
+            />
+            <button class="absolute bottom-0 right-0 bg-teal-500 text-white p-2 rounded-full hover:bg-teal-400">
+              <i data-lucide="camera" class="h-4 w-4"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="flex-1 text-center md:text-left">
+          <h1 class="text-3xl font-bold mb-2">John Doe</h1>
+          <p class="text-gray-500 mb-4">Web Developer & UI/UX Designer</p>
+          
+          <div class="flex flex-wrap justify-center md:justify-start gap-4 mb-4">
+            <div class="flex items-center text-sm text-gray-500">
+              <i data-lucide="mail" class="h-4 w-4 mr-1"></i>
+              <span>john.doe@example.com</span>
+            </div>
+            <div class="flex items-center text-sm text-gray-500">
+              <i data-lucide="map-pin" class="h-4 w-4 mr-1"></i>
+              <span>New York, USA</span>
+            </div>
+            <div class="flex items-center text-sm text-gray-500">
+              <i data-lucide="calendar" class="h-4 w-4 mr-1"></i>
+              <span>Joined: January 2023</span>
+            </div>
+          </div>
+          
+          <div class="flex flex-wrap justify-center md:justify-start gap-2">
+            <button class="px-6 py-2 bg-teal-500 text-white rounded-full hover:bg-teal-400">
+              Edit Profile
+            </button>
+            <button class="px-6 py-2 border border-gray-300 rounded-full hover:bg-gray-100">
+              Account Settings
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Learning Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+      <div class="bg-white rounded-lg shadow-md p-6 flex items-center">
+        <div class="bg-blue-100 p-3 rounded-full mr-4">
+          <i data-lucide="book-open" class="h-6 w-6 text-blue-500"></i>
+        </div>
+        <div>
+          <div class="text-2xl font-bold">12</div>
+          <div class="text-gray-500 text-sm">Courses in Progress</div>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow-md p-6 flex items-center">
+        <div class="bg-green-100 p-3 rounded-full mr-4">
+          <i data-lucide="check-circle" class="h-6 w-6 text-green-500"></i>
+        </div>
+        <div>
+          <div class="text-2xl font-bold">8</div>
+          <div class="text-gray-500 text-sm">Completed Courses</div>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow-md p-6 flex items-center">
+        <div class="bg-orange-100 p-3 rounded-full mr-4">
+          <i data-lucide="clock" class="h-6 w-6 text-orange-400"></i>
+        </div>
+        <div>
+          <div class="text-2xl font-bold">126h</div>
+          <div class="text-gray-500 text-sm">Learning Time</div>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow-md p-6 flex items-center">
+        <div class="bg-purple-100 p-3 rounded-full mr-4">
+          <i data-lucide="award" class="h-6 w-6 text-purple-500"></i>
+        </div>
+        <div>
+          <div class="text-2xl font-bold">15</div>
+          <div class="text-gray-500 text-sm">Certificates Earned</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Profile Tabs -->
+    <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+      <div class="flex border-b">
+        <button class="px-6 py-3 font-medium text-gray-500 hover:text-gray-700 border-b-2 border-transparent hover:border-gray-300">
+          Dashboard
+        </button>
+        <button class="px-6 py-3 font-medium text-teal-500 border-b-2 border-teal-400">
+          Learning History
+        </button>
+        <button class="px-6 py-3 font-medium text-gray-500 hover:text-gray-700 border-b-2 border-transparent hover:border-gray-300">
+          Certificates
+        </button>
+        <button class="px-6 py-3 font-medium text-gray-500 hover:text-gray-700 border-b-2 border-transparent hover:border-gray-300">
+          Wishlist
+        </button>
+      </div>
+      
+      <!-- Learning History Tab Content -->
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-xl font-bold flex items-center">
+            <i data-lucide="history" class="h-5 w-5 mr-2 text-teal-500"></i>
+            Recent Learning Activity
+          </h2>
+          <a href="history.html" class="text-teal-500 hover:underline flex items-center">
+            View All
+            <i data-lucide="chevron-right" class="h-4 w-4 ml-1"></i>
+          </a>
+        </div>
+        
+        <!-- Course History List -->
+        <div class="space-y-4">
+          <!-- Course 1 -->
+          <div class="border border-gray-100 rounded-lg p-4 hover:shadow-md transition-shadow">
+            <div class="flex items-start">
+              <img 
+                src="https://placehold.co/100x60" 
+                alt="Web Development Masterclass" 
+                class="w-20 h-12 object-cover rounded mr-4"
+              />
+              <div class="flex-1">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+                  <h3 class="font-medium hover:text-teal-500">
+                    <a href="courses/1.html">Web Development Masterclass</a>
+                  </h3>
+                  <span class="text-sm text-gray-500">Last accessed: Today, 2:30 PM</span>
+                </div>
+                <div class="mb-2">
+                  <div class="flex justify-between text-xs mb-1">
+                    <span>Progress</span>
+                    <span>65% complete</span>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-1.5">
+                    <div class="bg-teal-400 h-1.5 rounded-full" style="width: 65%"></div>
+                  </div>
+                </div>
+                <div class="flex justify-between items-center">
+                  <div class="flex items-center text-xs text-gray-500">
+                    <i data-lucide="clock" class="h-3 w-3 mr-1"></i>
+                    <span>12h 45m total</span>
+                  </div>
+                  <a href="courses/1.html">
+                    <button class="px-4 py-1 text-sm bg-teal-500 text-white rounded-full hover:bg-teal-400">
+                      Continue
+                    </button>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Course 2 -->
+          <div class="border border-gray-100 rounded-lg p-4 hover:shadow-md transition-shadow">
+            <div class="flex items-start">
+              <img 
+                src="https://placehold.co/100x60" 
+                alt="UI/UX Design Fundamentals" 
+                class="w-20 h-12 object-cover rounded mr-4"
+              />
+              <div class="flex-1">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+                  <h3 class="font-medium hover:text-teal-500">
+                    <a href="courses/2.html">UI/UX Design Fundamentals</a>
+                  </h3>
+                  <span class="text-sm text-gray-500">Last accessed: Yesterday, 10:15 AM</span>
+                </div>
+                <div class="mb-2">
+                  <div class="flex justify-between text-xs mb-1">
+                    <span>Progress</span>
+                    <span>42% complete</span>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-1.5">
+                    <div class="bg-teal-400 h-1.5 rounded-full" style="width: 42%"></div>
+                  </div>
+                </div>
+                <div class="flex justify-between items-center">
+                  <div class="flex items-center text-xs text-gray-500">
+                    <i data-lucide="clock" class="h-3 w-3 mr-1"></i>
+                    <span>8h 20m total</span>
+                  </div>
+                  <a href="courses/2.html">
+                    <button class="px-4 py-1 text-sm bg-teal-500 text-white rounded-full hover:bg-teal-400">
+                      Continue
+                    </button>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Course 3 -->
+          <div class="border border-gray-100 rounded-lg p-4 hover:shadow-md transition-shadow">
+            <div class="flex items-start">
+              <img 
+                src="https://placehold.co/100x60" 
+                alt="Python for Data Science" 
+                class="w-20 h-12 object-cover rounded mr-4"
+              />
+              <div class="flex-1">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+                  <h3 class="font-medium hover:text-teal-500">
+                    <a href="courses/4.html">Python for Data Science</a>
+                  </h3>
+                  <span class="text-sm text-gray-500">Last accessed: March 20, 2023</span>
+                </div>
+                <div class="mb-2">
+                  <div class="flex justify-between text-xs mb-1">
+                    <span>Progress</span>
+                    <span>25% complete</span>
+                  </div>
+                  <div class="w-full bg-gray-200 rounded-full h-1.5">
+                    <div class="bg-teal-400 h-1.5 rounded-full" style="width: 25%"></div>
+                  </div>
+                </div>
+                <div class="flex justify-between items-center">
+                  <div class="flex items-center text-xs text-gray-500">
+                    <i data-lucide="clock" class="h-3 w-3 mr-1"></i>
+                    <span>5h 10m total</span>
+                  </div>
+                  <a href="courses/4.html">
+                    <button class="px-4 py-1 text-sm bg-teal-500 text-white rounded-full hover:bg-teal-400">
+                      Continue
+                    </button>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Account Settings -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <h2 class="text-xl font-bold mb-6 flex items-center">
+        <span class="bg-teal-100 p-2 rounded-full mr-3">
+          <i data-lucide="settings" class="h-5 w-5 text-teal-500"></i>
+        </span>
+        Account Settings
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <h3 class="font-medium mb-4">Personal Information</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+              <input 
+                type="text" 
+                value="John Doe"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent"
+              >
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+              <input 
+                type="email" 
+                value="john.doe@example.com"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent"
+              >
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+              <input 
+                type="tel" 
+                value="+1 (555) 123-4567"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent"
+              >
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="font-medium mb-4">Password & Security</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Current Password</label>
+              <input 
+                type="password" 
+                placeholder="••••••••"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent"
+              >
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">New Password</label>
+              <input 
+                type="password" 
+                placeholder="••••••••"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent"
+              >
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Confirm New Password</label>
+              <input 
+                type="password" 
+                placeholder="••••••••"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent"
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="border-t mt-6 pt-6 flex justify-end">
+        <button class="px-6 py-2 bg-teal-500 text-white rounded-full hover:bg-teal-400">
+          Save Changes
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-8 mt-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">TOTC</h3>
+          <p class="text-gray-300">
+            Premium learning platform for students and professionals.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">Quick Links</h4>
+          <ul class="space-y-2">
+            <li>
+              <a href="courses.html" class="text-gray-300 hover:text-white">
+                All Courses
+              </a>
+            </li>
+            <li>
+              <a href="exercises.html" class="text-gray-300 hover:text-white">
+                Exercises
+              </a>
+            </li>
+            <li>
+              <a href="history.html" class="text-gray-300 hover:text-white">
+                History
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">Support</h4>
+          <ul class="space-y-2">
+            <li>
+              <a href="contact.html" class="text-gray-300 hover:text-white">
+                Contact Us
+              </a>
+            </li>
+            <li>
+              <a href="faq.html" class="text-gray-300 hover:text-white">
+                FAQ
+              </a>
+            </li>
+            <li>
+              <a href="help.html" class="text-gray-300 hover:text-white">
+                Help Center
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">Subscribe</h4>
+          <p class="text-gray-300 mb-2">
+            Get the latest updates and offers
+          </p>
+          <div class="flex">
+            <input
+              type="email"
+              placeholder="Your email"
+              class="px-4 py-2 rounded-l-md w-full"
+            />
+            <button class="px-4 py-2 bg-teal-500 text-white rounded-r-md hover:bg-teal-400">Subscribe</button>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+        <p>&copy; <script>document.write(new Date().getFullYear())</script> TOTC. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

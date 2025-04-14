@@ -40,27 +40,33 @@ class Route
         } else {
             // Vérifie si une route dynamique correspond
             foreach (self::$routes[$method] as $route => $action) {
+
+                
+                $route = trim($route, '/');
+                $path = trim($path, '/');
                 
                 $pattern = preg_replace('/{([a-zA-Z]+)}/', '([a-zA-Z0-9-]+)', $route);
                
-              
-               
-
                 if (preg_match("#^$pattern$#", $path, $matches)) {
                     array_shift($matches);
                     $params = $matches;
-                     
-                   
+
                     break;
+
                     
                 } 
+                
+
+
+               
+
                 
 
             }
             
            
-
-            
+           
+ 
         }
 
         
