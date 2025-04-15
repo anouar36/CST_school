@@ -23,7 +23,7 @@ class QuizzesRepositorie
             quizzes.created_by,
             quizzes.cours_id,
             categoriesQuizz.id as category_id,
-            categoriesQuizz.name as category_name,
+            categoriesQuizz.name as category_name
             FROM `quizzes` INNER JOIN categoriesQuizz on quizzes.categori_id = categoriesQuizz.id WHERE cours_id = :id";
         $stmt = $this->connexion->prepare($sql);
         $stmt->bindParam(':id', $id);
@@ -58,6 +58,16 @@ class QuizzesRepositorie
         $stmt->execute();
         $quiz = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $quiz;
+    }
+
+    public function getTotalQuestions($id)
+    {
+        $sql = "SELECT COUNT(*) as total FROM questions WHERE quiz_id = :id";
+        $stmt = $this->connexion->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $total = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $total['total'];
     }
     
     public function createQuiz($data)

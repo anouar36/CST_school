@@ -18,6 +18,8 @@ class QuizzesController implements ControllerInterface
         $objectQuizzes = new QuizzServis;
         $quizzesDatabase = $quizzes->getQuizById($idQuizz);
         $quizzesList = $objectQuizzes->getObjectQuizzes($quizzesDatabase);
+        $totalQuestions =  $quizzes->getTotalQuestions($idQuizz);
+       
         // echo '<pre>';
         // var_dump($quizzesList);
         // echo '</pre>';
@@ -27,6 +29,7 @@ class QuizzesController implements ControllerInterface
 
         View::render('Student/quizz.twig', [
             'quizzes' => $quizzesList,
+            'totalQuestions' => $totalQuestions,
             
         ]);
 
@@ -37,9 +40,6 @@ class QuizzesController implements ControllerInterface
         $quizzes = new QuizzesRepositorie;
         $quizzesList = $quizzes->getAllQuizzes($id);
         
-       
-        
-
          echo  json_encode($quizzesList);
          exit;
       

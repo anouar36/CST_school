@@ -50,43 +50,7 @@
 
   <!-- Quiz Content -->
   <div class="container mx-auto px-4 py-8">
-    <!-- Breadcrumb -->
-    <nav class="flex mb-6" aria-label="Breadcrumb">
-      <ol class="inline-flex items-center space-x-1 md:space-x-3">
-        <li class="inline-flex items-center">
-          <a href="index.html" class="text-gray-700 hover:text-teal-500">
-            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
-            </svg>
-            Home
-          </a>
-        </li>
-        <li>
-          <div class="flex items-center">
-            <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            <a href="#" class="ml-1 text-gray-700 hover:text-teal-500 md:ml-2">Web Development Course</a>
-          </div>
-        </li>
-        <li>
-          <div class="flex items-center">
-            <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            <a href="#" class="ml-1 text-gray-700 hover:text-teal-500 md:ml-2">Exercises</a>
-          </div>
-        </li>
-        <li aria-current="page">
-          <div class="flex items-center">
-            <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-            </svg>
-            <span class="ml-1 text-gray-500 md:ml-2 font-medium">JavaScript DOM Manipulation Quiz</span>
-          </div>
-        </li>
-      </ol>
-    </nav>
+   
 
     <!-- Quiz Container -->
     <div class="bg-white rounded-xl shadow-sm p-8">
@@ -129,7 +93,7 @@
       <div id="questionsContainer">
         <!-- Question 1 -->
         {% for question in quizzes.getQuestions %}
-        <div class="question-item" data-question="1">
+        <div class="question-item {% if not loop.first %}hidden{% endif %}" "  data-question="{{loop.index}}">
           <div class="mb-6">
             <h3 class="text-lg font-semibold mb-2">{{question.getQuestion}}</h3>
             <div class="space-y-3 mt-4">
@@ -137,6 +101,9 @@
               <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
                 <input type="radio" name="q2" value="{{answer.getPlace}}" class="h-4 w-4 text-teal-500 focus:ring-teal-400">
                 <h3 class="text-sm text-gray-500 ml-2">({{answer.getPlace}})</h3>
+                                <h3 class="text-sm text-gray-500 ml-2">({{totalQuestions}})</h3>
+
+
                 <span class="ml-3">{{answer.getAnswer}}</span>
               </label>
             {% endfor %}
@@ -286,11 +253,11 @@
   </footer>
 
   <script>
-    // Quiz functionality
-    document.addEventListener('DOMContentLoaded', function() {
+        // Quiz functionality
+        document.addEventListener('DOMContentLoaded', function() {
       // Quiz variables
       let currentQuestionIndex = 1;
-      const totalQuestions = 5; // We have 5 questions in this example
+      let totalQuestions = {{ totalQuestions }}; // We have 5 questions in this example
       let userAnswers = {};
       let timerInterval;
       let timeLeft = 15 * 60; // 15 minutes in seconds
@@ -313,7 +280,6 @@
       function initQuiz() {
         // Disable previous button on first question
         prevButton.disabled = true;
-        
         // Start timer
         startTimer();
         

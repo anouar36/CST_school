@@ -48,12 +48,14 @@ class QuizzServis
     
         // Create the Quiz object and assign questions
         // $id, $title, $techer_id, $description, $questions = []
-        $quiz = new Quizze(
+            $quiz = new Quizze(
+            
             $row['id'],
             $row['title'],
             $row['techer_id'],
             $row['description'],
-            $questions
+            $questions,
+            
         );
        
     

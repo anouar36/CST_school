@@ -99,6 +99,7 @@ class CoursRepositorie
                 courses.participants,
                 courses.active,
                 courses.deleted_at,
+                 courses.halfPrice,
                 courses.course_id,
                 courses.duration,
                 courses.Level,
@@ -152,6 +153,8 @@ class CoursRepositorie
                 $course->duration,
                 $course->Level,
                 $course->intro,
+                '',
+                $course->halfPrice,
                 
             );
         } else {
@@ -445,7 +448,7 @@ class CoursRepositorie
         }
     }
 
-    public function getAssessment($id=4)
+    public function getAssessment($id = 4)
     {
         $query = "SELECT ROUND(SUM(interaction.star) * 1.0 / COUNT(interaction.user_id), 1) AS assessment
         FROM interaction
@@ -477,6 +480,51 @@ class CoursRepositorie
         $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
         $stmt->bindParam(':islike', $islike, PDO::PARAM_INT);
         $stmt->execute();
+    }
+
+    public function isActive($courseId, $userId)
+    {
+        $query = "SELECT * FROM orders WHERE  course_id = :courseId AND user_id = :userId";
+        $stmt = $this->connexion->prepare($query);
+        $stmt->bindParam(':courseId', $courseId, PDO::PARAM_INT);
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        $interaction = $stmt->fetch(PDO::FETCH_OBJ);
+
+        if ($interaction) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public function addReview($courseId, $userId, $comment, $rating,$subject)
+    {
+        $query = "INSERT INTO interaction (course_id, user_id, commenter, star,subject) VALUES (:courseId, :userId, :commenter, :star , :subject)";
+        $stmt = $this->connexion->prepare($query);
+        $stmt->bindParam(':courseId', $courseId, PDO::PARAM_INT);
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $stmt->bindParam(':commenter', $comment, PDO::PARAM_STR);
+        $stmt->bindParam(':star', $rating, PDO::PARAM_INT);
+        $stmt->bindParam(':subject', $subject, PDO::PARAM_STR);
+
+        $resulte = $stmt->execute();
+        if($resulte) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function countInteraction($id)
+    {
+        $query = "SELECT COUNT(*) FROM interaction WHERE interaction.course_id = :id AND interaction.commenter IS NOT NULL";
+        $stmt = $this->connexion->prepare($query);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $count = $stmt->fetchColumn();
+        return $count;
     }
    
 

@@ -20,8 +20,10 @@ class CourseDetailController{
         $courseDetail = $course->getCourseById($id);
         $interaction = $course->interaction($_SESSION['user_id'],$id);
         $revuse = $course->reviews($id);
-      
+        $isActive = $course->isActive($id,$_SESSION['user_id']);
         $assessment = $course->getAssessment($id);
+        $countInteraction = $course->countInteraction($id);
+      
         
         View::render('Student/courseDetails.twig', [
             'name'      => $_SESSION['user_name'],
@@ -33,6 +35,8 @@ class CourseDetailController{
             'interaction' => $interaction,
             'reviews' => $revuse,
             'assessment' => $assessment,
+            'isActive' => $isActive,
+            'countInteraction' => $countInteraction,
 
         ]);
     }
@@ -56,6 +60,23 @@ class CourseDetailController{
          header('Location: /course/details/'.$id);
          exit;              
 
+    }
+
+    public function addReview()
+    {
+        $review = new CoursRepositorie;
+        $id = $_POST['courseId'];
+        $userId = $_SESSION['user_id'];
+        $title = $_POST['title'];
+        $content = $_POST['content'];
+        $rating = $_POST['rating'];
+        
+        
+        $review->addReview($id, $userId,$content , $rating, $title, );
+      
+
+        header('Location: /course/details/'.$id);
+        exit;              
     }
 
     public function exercies($id)

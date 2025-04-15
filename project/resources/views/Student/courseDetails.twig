@@ -31,6 +31,7 @@
         <a href="index.html" class="text-2xl font-bold">
           TOTC
         </a>
+        <input type="text" id='isActive' value="{{isActive}}" class="hidden" />
         <div class="hidden md:flex space-x-8">
           <a href="#" class="hover:text-teal-200">Home</a>
           <a href="#" class="hover:text-teal-200">Courses</a>
@@ -155,7 +156,7 @@
               <div class="p-6">
                 <div class="flex items-center justify-between mb-6">
                   <div class="text-3xl font-bold text-gray-800">{{course.getPrice}}MAD</div>
-                  <div class="text-sm text-gray-500 line-through">129.99MAD</div>
+                  <div class="text-sm text-gray-500 line-through">{{course.getHalfPrice}}MAD</div>
                 </div>
                 
                 <a href="/payment/{{course.getCourseId}}">
@@ -173,15 +174,7 @@
                   </svg>
                   Add to Wishlist
                 </button>
-               
-                </form>
-
-
-
-
-                
-
-                
+                </form>                
                 <div class="mt-6 space-y-3 text-sm">
                   <div class="flex items-center text-gray-700">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -263,9 +256,9 @@
           <button id='buttonReviews'  class="px-6 py-3 border-b-2 border-teal-500 text-teal-500 font-medium">Reviews</button>
           <button id='buttonExercises' class="px-6 py-3 text-gray-500 hover:text-gray-700">Exercises</button>
           <button id='buttonQuizzes' class="px-6 py-3 text-gray-500 hover:text-gray-700">Quizzes</button>
-
         </div>
       </div>
+      
 
       <!-- Reviews Tab -->
       <div  id="ReviwsContent"  class="bg-white rounded-xl shadow-sm p-8">
@@ -273,40 +266,76 @@
           <h2 class="text-2xl font-bold text-gray-800">Student Reviews </h2>
           <div class="mt-4 md:mt-0 flex items-center gap-4">
             <div class="flex items-center">
-            {% set rounded = assessment|round(1, 'floor') %}
-            {% set fullStars = assessment >= 5 ? 5 : assessment|round(0, 'floor') %}
-            {% set hasHalfStar = (assessment - fullStars) >= 0.5 and fullStars < 5 %}
-            {% set emptyStars = 5 - fullStars %}
+           
               <div class="flex mr-2">
-              {% for i in 1..fullStars %}
+              {# {% for i in 1..   %}
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-400 fill-yellow-400" viewBox="0 0 20 20">
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
               </svg>
-              {% endfor %}
+              {% endfor %} #}
 
-              {% if hasHalfStar %}
-                <i class="fa fa-star-half-alt text-yellow-400"></i>
-              {% endif %}
-              
-
-            {% if emptyStars != 0 %}
-
-
-              {% for i in 1..emptyStars %}
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-300 fill-gray-300" viewBox="0 0 20 20">
+              {% for i in 1..5 %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-400 {{ i <= assessment|round(1, 'floor') ? 'fill-yellow-400' : 'fill-gray-300' }}" viewBox="0 0 20 20">
                   <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                 </svg>
               {% endfor %}
-              {% endif %}
+
               </div>
               <span class="font-medium">{{assessment}}</span>
-              <span class="text-gray-500 ml-1">(128 reviews)</span>
+              <span class="text-gray-500 ml-1">({{countInteraction}} reviews)</span>
             </div>
-            <button class="px-4  py-2 bg-teal-500 text-white rounded-full hover:bg-teal-400 transition-colors text-sm">
-              Write a Review
+            <button id='buttonAddReview' class="px-4  py-2 bg-teal-500 text-white rounded-full hover:bg-teal-400 transition-colors text-sm">
+              Add Review
             </button>
           </div>
         </div>
+        <!-- Review Form (Hidden by default) -->
+          <div id="containerAddReview" class="mb-8 p-6 border border-gray-200 rounded-lg bg-gray-50 hidden">
+            <h3 class="text-xl font-semibold mb-4">Write Your Review</h3>
+            <form method="POST" action="/student/addReview">
+              <input type="hidden" name="courseId" value="{{course.getCourseId}}">
+              <div class="mb-4">
+                <label class="block text-gray-700 mb-2">Your Rating</label>
+$                <div class="flex space-x-1 star-rating">
+                  <svg  xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 cursor-pointer star text-gray-300 fill-gray-300" data-rating="1" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 cursor-pointer star text-gray-300 fill-gray-300" data-rating="2" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 cursor-pointer star text-gray-300 fill-gray-300" data-rating="3" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 cursor-pointer star text-gray-300 fill-gray-300" data-rating="4" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 cursor-pointer star text-gray-300 fill-gray-300" data-rating="5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                </div>
+                <input type="hidden" id="rating-value" name="rating" value="0">
+              </div>
+              
+              <div class="mb-4">
+                <label for="review-title" class="block text-gray-700 mb-2">Review Title</label>
+                <input type="text" id="review-title" name="title" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="Summarize your experience">
+              </div>
+              
+              <div class="mb-4">
+                <label for="review-content" class="block text-gray-700 mb-2">Your Review</label>
+                <textarea id="review-content" name="content" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="What did you like or dislike about this course?"></textarea>
+              </div>
+              
+              <div class="flex justify-end space-x-3">
+                <button type="button" id="cancel-review" class="px-6 py-2 border border-gray-300 rounded-md hover:bg-gray-100 transition-colors">
+                  Cancel
+                </button>
+                <button type="submit" class="px-6 py-2 bg-teal-500 text-white rounded-md hover:bg-teal-400 transition-colors">
+                  Submit Review
+                </button>
+              </div>
+            </form>
+          </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
           <div  class="lg:col-span-3">
@@ -412,6 +441,7 @@
               </div>
             </div>
           </div>
+          
 
           <div class="lg:col-span-9">
             <div id='content' class="space-y-6">
@@ -425,21 +455,11 @@
                         <h4 class="font-medium">{{review.getStudent.getName}}</h4>
                         <div class="flex items-center mt-1">
                           <div class="flex mr-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-400 fill-yellow-400" viewBox="0 0 20 20">
-                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-400 fill-yellow-400" viewBox="0 0 20 20">
-                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-400 fill-yellow-400" viewBox="0 0 20 20">
-                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-400 fill-yellow-400" viewBox="0 0 20 20">
-                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-400 fill-yellow-400" viewBox="0 0 20 20">
-                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
+                            {% for i in 1..5 %}
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-400 {{ i <= review.getStar() ? 'fill-yellow-400' : 'fill-gray-300' }}" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                              </svg>
+                            {% endfor %}
                           </div>
                           <span class="text-sm text-gray-500">{{ review.getCreatedAt}}</span>
                         </div>
@@ -588,142 +608,7 @@
     <script>
       lucide.createIcons();
     </script>
-    <script>
-    let buttonReviews = document.getElementById('buttonReviews');
-    let buttonExercises = document.getElementById('buttonExercises');
-    let exercisesContent = document.getElementById('exercisesContent');
-    let ReviwsContent = document.getElementById('ReviwsContent');
-    let exercisesList = document.getElementById('exercisesList');
-    let QuizzesContent = document.getElementById('QuizzesContent');
-    let QuizzesList = document.getElementById('QuizzesList');
-    let loadingExercises =document.getElementById('loadingExercises');
-    let buttonQuizzes = document.getElementById('buttonQuizzes');
-    let idcours = document.getElementById('idCours').value;
-    let containerCouerses = document.getElementById('content');
-
-    buttonExercises.addEventListener('click', function(){
-
-      buttonExercises.classList.remove('px-4', 'py-2', 'text-gray-500', 'hover:text-gray-700');
-      buttonQuizzes.classList.remove('px-4', 'py-2', 'text-gray-500', 'hover:text-gray-700');
-      exercisesContent.classList.remove('hidden');
-      QuizzesContent.classList.add('hidden');
-      ReviwsContent.classList.add('hidden');
-      buttonReviews.classList.remove('px-4' ,'py-2', 'border-b-2', 'border-teal-500', 'text-teal-500', 'font-medium');
-      buttonExercises.classList.add('px-4' ,'py-2', 'border-b-2', 'border-teal-500', 'text-teal-500', 'font-medium');
-      buttonReviews.classList.add('px-4', 'py-2', 'text-gray-500', 'hover:text-gray-700');
-      
-
-       
-        
-    if (exercisesList.children.length === 0) {
-      let xhr = new XMLHttpRequest();
-      xhr.open("GET", "/student/exercies/" + encodeURIComponent(idcours), true);
-      
-      xhr.onreadystatechange = function (){
-        if(xhr.readyState == 4 &&  xhr.status == 200){
-          const exercises = JSON.parse(xhr.responseText);
-          exercises.forEach(exercise => {
-          const exerciseCard = document.createElement('div');
-          exerciseCard.className = 'border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow';
-          exerciseCard.innerHTML = `
-            <h3 class="text-lg font-semibold mb-2">${exercise.name}</h3>
-            <p class="text-gray-600 mb-4">${exercise.content}</p>
-            <div class="flex justify-between items-center">
-              <span class="text-sm text-gray-500">Difficulty: Not Specified</span>
-              <button class="text-teal-500 hover:text-teal-600 font-medium text-sm">
-                Start Exercise →
-              </button>
-            </div>`;
-          exercisesList.appendChild(exerciseCard);
-          });
-        }
-      }
-        xhr.send();
-      }
-    });
-
-    setTimeout(function() {
-      loadingExercises.classList.add('hidden');
-      exercisesList.classList.remove('hidden');
-    }, 5000);
-
-    buttonReviews.addEventListener('click', function(){
-
-      buttonExercises.classList.remove('px-4' ,'py-2', 'border-b-2', 'border-teal-500', 'text-teal-500', 'font-medium');
-      buttonQuizzes.classList.remove('px-4' ,'py-2', 'border-b-2', 'border-teal-500', 'text-teal-500', 'font-medium');
-      buttonReviews.classList.remove('px-4', 'py-2', 'text-gray-500', 'hover:text-gray-700');
-      exercisesContent.classList.add('hidden');
-      QuizzesContent.classList.add('hidden');
-      ReviwsContent.classList.remove('hidden');
-      buttonExercises.classList.add('px-4', 'py-2', 'text-gray-500', 'hover:text-gray-700');
-      buttonReviews.classList.add('px-4' ,'py-2', 'border-b-2', 'border-teal-500', 'text-teal-500', 'font-medium'); 
-    })
-
-    buttonQuizzes.addEventListener('click', function(){
-
-      buttonExercises.classList.remove('px-4' ,'py-2', 'border-b-2', 'border-teal-500', 'text-teal-500', 'font-medium');
-      buttonReviews.classList.remove('px-4' ,'py-2', 'border-b-2', 'border-teal-500', 'text-teal-500', 'font-medium');
-      exercisesContent.classList.add('hidden');
-      ReviwsContent.classList.add('hidden');
-      QuizzesContent.classList.remove('hidden');
-      buttonQuizzes.classList.add('px-4', 'py-2', 'text-gray-500', 'hover:text-gray-700');
-      buttonReviews.classList.add('px-4', 'py-2', 'text-gray-500', 'hover:text-gray-700');
-      buttonQuizzes.classList.add('px-4' ,'py-2', 'border-b-2', 'border-teal-500', 'text-teal-500', 'font-medium');
-      console.log("hello");
-
-      if(QuizzesList.children.length === 0){
-        let xhr = new XMLHttpRequest();
-        xhr.open("GET", "/student/quizz/" + encodeURIComponent(idcours), true);
-        
-        xhr.onreadystatechange = function (){
-          console.log("readyState =>", xhr.readyState);
-          console.log("status => ", xhr.status);
-          if(xhr.readyState == 4 &&  xhr.status == 200){
-            const Quizzes = JSON.parse(xhr.responseText);
-            console.log("Quizzes =>", Quizzes);
-            Quizzes.forEach(Quizz => {
-            const QuizzCard = document.createElement('div');
-            QuizzCard.className = 'border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow';
-            QuizzCard.innerHTML = `
-            <form method="POST" action="/student/quizz/test">
-            <input hidden name="idQuizz" value="${Quizz.id}">
-              <h3 class="text-lg font-semibold mb-2">${Quizz.title}</h3>
-              <p class="text-gray-600 mb-4">${Quizz.description}</p>
-              <div class="flex justify-between items-center">
-              <h1 class="text-lg font-semibold mb-2">Score: ${Quizz.id}</h1>
-                <span class="text-sm text-gray-500">Difficulty: ${Quizz.name}</span>
-                <button class="text-teal-500 hover:text-teal-600 font-medium text-sm">
-                  Start Quizz →
-                </button>
-              </div>
-              </form>`;
-            QuizzesList.appendChild(QuizzCard);
-            });
-          }
-        }
-          xhr.send();
-        }
-       
-      });
-       setTimeout(function() {
-      loadingQuizz.classList.add('hidden');
-      QuizzesList.classList.remove('hidden');
-     }, 5000);
-      
-
-      
-
-
-
-
-
-
-    
-
-        
-        
-        </script>
-      <script src="../../../public/js/ajaxSearchCours.js"></script>
+    <script src="../../../public/js/courseDetails.js"></script>
 
 
       

@@ -6,6 +6,7 @@ class Coures {
     private $course_name;
 
     private $price;
+    private $halfPrice;
     private $duration;
     private $course_description;
     private $content;
@@ -40,7 +41,8 @@ class Coures {
         $duration= null,
         $Level = null,
         $introduction = null,
-        $interaction = null
+        $interaction = null,
+        $halfPrice = null
        
 
     ) {
@@ -61,6 +63,8 @@ class Coures {
         $this->Level = $Level;
         $this->introduction = $introduction;
         $this->interaction = $interaction;
+        $this->halfPrice = $halfPrice;
+
     }
 
     public function getCourseId () {
@@ -84,6 +88,9 @@ class Coures {
 
     public function setPrice($price) {
         $this->price = $price;
+    }
+    public function getHalfPrice() {
+        return $this->halfPrice;
     }
 
 

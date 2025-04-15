@@ -78,6 +78,8 @@ Route::post('/like', 'CourseDetailController@like');
 // quizzes
 Route::get('/student/quizz/{id}', 'QuizzesController@indexWith');
 Route::post('/student/quizz', 'QuizzesController@index');
+// /student/addReview
+Route::post('/student/addReview', 'CourseDetailController@addReview');
 
 
 

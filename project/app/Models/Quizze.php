@@ -6,6 +6,7 @@ class Quizze{
     private $id;
     private $title;
     private $techer_id;
+    private $Category;
     private $description;
     private $questions = [];
 
@@ -16,11 +17,18 @@ class Quizze{
         $this->techer_id = $techer_id;
         $this->description = $description;
         $this->questions = $questions;
+
     }
+    
 
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getCategory()
+    {
+        return $this->Category;
     }
 
     public function getTitle()
